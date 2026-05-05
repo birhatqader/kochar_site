@@ -822,7 +822,7 @@ window.handleSend = function() {
   if(!name || !email || !message) { alert(t['form.alert'] || 'Please fill in your name, email, and message.'); return; }
   const mailSubject = encodeURIComponent(subject || "New Project Inquiry");
   const mailBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-  window.location.href = `mailto:birhatkochar2001@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+  window.location.href = `mailto:nihadqadir8@gmail.com?subject=${mailSubject}&body=${mailBody}`;
   const successEl = document.getElementById('form-success');
   successEl.textContent = t['form.success'];
   successEl.style.display = 'block';
