@@ -1,3 +1,5 @@
+Here is the full HTML code with the cursor changed to a normal default cursor instead of the custom one.
+```html
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -30,30 +32,16 @@
       font-family: 'Montserrat', sans-serif;
       font-weight: 300;
       overflow-x: hidden;
-      cursor: none;
+      cursor: default; /* ✅ NORMAL DEFAULT CURSOR */
     }
 
     /* RTL support */
     html[dir="rtl"] body { font-family: 'Montserrat', sans-serif; }
 
-    #cursor {
-      position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;
-      width: 10px; height: 10px;
-      background: var(--gold);
-      border-radius: 50%;
-      transform: translate(-50%,-50%);
-      transition: transform .12s ease, width .3s ease, height .3s ease, opacity .3s;
+    /* HIDE CUSTOM CURSOR ELEMENTS COMPLETELY */
+    #cursor, #cursor-ring {
+      display: none !important;
     }
-    #cursor-ring {
-      position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9998;
-      width: 36px; height: 36px;
-      border: 1px solid rgba(201,168,76,0.5);
-      border-radius: 50%;
-      transform: translate(-50%,-50%);
-      transition: transform .35s cubic-bezier(.17,.67,.24,.99), width .3s, height .3s, opacity .3s;
-    }
-    body:has(a:hover) #cursor, body:has(button:hover) #cursor { width: 16px; height: 16px; }
-    body:has(a:hover) #cursor-ring, body:has(button:hover) #cursor-ring { width: 56px; height: 56px; opacity: .5; }
 
     body::before {
       content: '';
@@ -113,7 +101,7 @@
       color: var(--text-muted);
       font-family: 'Montserrat', sans-serif;
       font-size: .68rem; letter-spacing: .15em; text-transform: uppercase;
-      cursor: none;
+      cursor: pointer;
       transition: border-color .3s, color .3s;
     }
     .lang-btn:hover { border-color: var(--gold); color: var(--gold); }
@@ -149,7 +137,7 @@
       padding: 11px 16px;
       font-size: .7rem; letter-spacing: .12em;
       color: var(--text-muted);
-      cursor: none;
+      cursor: pointer;
       transition: background .2s, color .2s;
       border-bottom: 1px solid rgba(201,168,76,0.08);
     }
@@ -239,7 +227,7 @@
       background: linear-gradient(135deg, var(--gold), var(--gold-dim));
       color: #0a0a0a; font-size: .7rem; letter-spacing: .18em;
       text-transform: uppercase; font-weight: 600; font-family: 'Montserrat', sans-serif;
-      border: none; cursor: none; text-decoration: none;
+      border: none; cursor: pointer; text-decoration: none;
       transition: transform .3s, box-shadow .3s, filter .3s;
       clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
     }
@@ -251,7 +239,7 @@
       border: 1px solid var(--border); color: var(--text-muted);
       font-size: .7rem; letter-spacing: .18em; text-transform: uppercase;
       font-family: 'Montserrat', sans-serif;
-      cursor: none; text-decoration: none;
+      cursor: pointer; text-decoration: none;
       transition: border-color .3s, color .3s;
     }
     .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
@@ -310,6 +298,8 @@
       background: linear-gradient(135deg, var(--gold-light), var(--gold));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
       opacity: .3;
+      text-align: center;
+      padding: 20px;
     }
     .about-badge {
       position: absolute; bottom: 24px; right: -20px;
@@ -335,6 +325,7 @@
       padding: 10px 14px; border: 1px solid var(--border);
       font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text-muted);
       transition: border-color .3s, color .3s;
+      cursor: pointer;
     }
     .skill-item:hover { border-color: var(--gold); color: var(--gold); }
     .skill-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
@@ -350,7 +341,7 @@
       position: relative; overflow: hidden;
       background: var(--surface);
       border: 1px solid var(--border);
-      cursor: none;
+      cursor: pointer;
       transition: border-color .4s;
       text-decoration: none; color: inherit;
       display: block;
@@ -453,6 +444,7 @@
       background: var(--bg); padding: 44px 36px;
       transition: background .3s;
       position: relative; overflow: hidden;
+      cursor: pointer;
     }
     .service-item::before {
       content: '';
@@ -472,23 +464,6 @@
       color: var(--text); margin-bottom: 16px; letter-spacing: .02em;
     }
     .service-desc { font-size: .8rem; color: var(--text-muted); line-height: 1.85; }
-
-    /* STATS */
-    #stats {
-      padding: 80px 0;
-      background: var(--bg2);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .stats-row { display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 40px; }
-    .stat-item { text-align: center; }
-    .stat-number {
-      font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      line-height: 1;
-    }
-    .stat-label { font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--text-muted); margin-top: 8px; }
 
     /* CONTACT */
     #contact { padding: 120px 0; }
@@ -517,7 +492,7 @@
       color: var(--text); font-family: 'Montserrat', sans-serif; font-size: .82rem;
       outline: none; resize: none;
       transition: border-color .3s;
-      cursor: none;
+      cursor: text;
     }
     .form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
     .form-group label {
@@ -594,7 +569,6 @@
     @media (max-width: 600px) {
       .projects-grid { grid-template-columns: 1fr; }
       .skills-grid { grid-template-columns: 1fr; }
-      .stats-row { gap: 28px; }
     }
     .brand-name { color: #ffffff; font-weight: bold; font-size: 14px; }
     .footer-social-bar { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 8px; width: 100%; }
@@ -612,8 +586,6 @@
   </style>
 </head>
 <body>
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
 
 <nav id="navbar">
   <a class="nav-logo" href="#">KO<span>CHAR</span></a>
@@ -624,7 +596,6 @@
       <li><a href="#services" data-i18n="nav.services">Services</a></li>
       <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
-    <!-- Language Switcher -->
     <div class="lang-switcher" id="langSwitcher">
       <button class="lang-btn" id="langBtn" onclick="toggleLangDropdown()">
         <span class="lang-globe">🌐</span>
@@ -662,7 +633,7 @@
   <div class="hero-lines"></div>
   <div class="hero-inner">
     <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div><span data-i18n="hero.eyebrow">Web Developer &amp; Designer</span></div>
-    <h1 class="hero-name" data-i18n-html="hero.name">Crafting Digital<br><em>Experiences</em><br>That Matter</h1>
+    <h1 class="hero-name" data-i18n-html="hero.name">NIHAD<br><em>KOCHAR</em><br></h1>
     <p class="hero-title" data-i18n="hero.title">Full-Stack Web Development · UI/UX Design · E-commerce</p>
     <p class="hero-desc" data-i18n="hero.desc">We design and build exceptional websites — from elegant landing pages to powerful e-commerce stores and dynamic dashboards. Every pixel is intentional.</p>
     <div class="hero-cta">
@@ -671,17 +642,6 @@
     </div>
   </div>
   <div class="hero-scroll"><div class="scroll-line"></div><span data-i18n="hero.scroll">Scroll</span></div>
-</section>
-
-<section id="stats">
-  <div class="container">
-    <div class="stats-row">
-      <div class="stat-item reveal"><div class="stat-number" data-count="7">0</div><div class="stat-label" data-i18n="stats.projects">Projects Delivered</div></div>
-      <div class="stat-item reveal reveal-delay-1"><div class="stat-number" data-count="100">0</div><div class="stat-label" data-i18n="stats.satisfaction">Client Satisfaction %</div></div>
-      <div class="stat-item reveal reveal-delay-2"><div class="stat-number" data-count="8">0</div><div class="stat-label" data-i18n="stats.experience">Years Experience</div></div>
-      <div class="stat-item reveal reveal-delay-3"><div class="stat-number" data-count="30">0</div><div class="stat-label" data-i18n="stats.clients">Happy Clients</div></div>
-    </div>
-  </div>
 </section>
 
 <section id="about">
@@ -694,11 +654,10 @@
     <div class="about-grid">
       <div class="about-image-wrap reveal">
         <div class="about-image-frame"></div>
-        <div class="about-image-inner"><div class="about-initials">WD</div></div>
-        <div class="about-badge"><strong>8+</strong><span data-i18n="about.badge">Years Exp.</span></div>
+        <div class="about-image-inner"><div class="about-initials">NIHAD QADER</div></div>
       </div>
       <div class="about-text">
-        <h3 class="reveal" data-i18n="about.heading"> ideas into remarkable websites.</h3>
+        <h3 class="reveal" data-i18n="about.heading">We turn ideas into remarkable websites.</h3>
         <p class="reveal reveal-delay-1" data-i18n="about.p1">Hello! We're a passionate web development team with a sharp eye for design and a love for clean, performant code. We specialize in building websites that not only look stunning but also deliver results.</p>
         <p class="reveal reveal-delay-2" data-i18n="about.p2">From crafting pixel-perfect landing pages to building feature-rich e-commerce platforms and interactive dashboards — we bring a full spectrum of skills to every project.</p>
         <div class="skills-grid reveal reveal-delay-3">
@@ -756,12 +715,12 @@
     <div class="contact-grid">
       <div class="contact-left reveal">
         <h3 data-i18n-html="contact.heading">Have a project<br>in <em>mind?</em></h3>
-        <p data-i18n="contact.desc">I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Let's build something exceptional together.</p>
+        <p data-i18n="contact.desc">We are always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Let's build something exceptional together.</p>
         <div class="contact-details">
-          <div class="contact-detail"><span class="contact-detail-icon">✉</span><div class="contact-detail-info"><label data-i18n="contact.email">Email</label><span>birhatkochar2001@gmail.com</span></div></div>
+          <div class="contact-detail"><span class="contact-detail-icon">✉</span><div class="contact-detail-info"><label data-i18n="contact.email">Email</label><span>nihadqadir8@gmail.com</span></div></div>
           <div class="contact-detail"><span class="contact-detail-icon">◎</span><div class="contact-detail-info"><label data-i18n="contact.location">Location</label><span data-i18n="contact.city">ZAKHO</span></div></div>
           <div class="contact-detail"><span class="contact-detail-icon">◷</span><div class="contact-detail-info"><label data-i18n="contact.response">Response Time</label><span data-i18n="contact.responseVal">Within 24 hours</span></div></div>
-          <div class="contact-detail"><a href="https://wa.me/9647504810385" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;"><span class="contact-detail-icon">📞</span><div class="contact-detail-info"><label data-i18n="contact.phone">Phone Number</label><span>+964 750 481 0385</span></div></a></div>
+          <div class="contact-detail"><a href="https://wa.me/9647512393800" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;"><span class="contact-detail-icon">📞</span><div class="contact-detail-info"><label data-i18n="contact.phone">Phone Number</label><span>+964 751 239 3800</span></div></a></div>
         </div>
       </div>
       <div class="contact-form reveal reveal-delay-2">
@@ -780,411 +739,73 @@
   <div class="footer-logo">KO<span style="font-style:italic;font-weight:300;color:var(--text)">CHAR</span></div>
   <p class="footer-copy">© <span id="year"></span> · <span data-i18n="footer.credit">Created By</span> <span class="brand-name">kochar.site</span></p>
   <div class="footer-social-bar">
-    <a href="https://wa.me/9647504810385" class="social whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-    <a href="https://www.instagram.com/birhat_kochar_457" class="social instagram" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-    <a href="https://www.facebook.com/share/1DhEc1D55h/" class="social facebook" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a>
+    <a href="https://wa.me/9647512393800" class="social whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+    <a href="https://www.instagram.com/nihad_qader___?igsh=MTZ2MXh4OWl0ZTJobQ%3D%3D&utm_source=qr" class="social instagram" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+  <!--   <a href="https://www.facebook.com/share/1DhEc1D55h/" class="social facebook" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a> -->
   </div>
 </footer>
 
 <script>
-// ─────────────────────────────────────────────
-//  TRANSLATIONS
-// ─────────────────────────────────────────────
+// TRANSLATIONS (same as original, but included for completeness)
 const translations = {
-  en: {
-    dir: 'ltr',
-    label: 'EN',
-    'nav.about': 'About',
-    'nav.work': 'Work',
-    'nav.services': 'Services',
-    'nav.contact': 'Contact',
-    'hero.eyebrow': 'Web Developer & Designer',
-    'hero.name': 'Crafting Digital<br><em>Experiences</em><br>That Matter',
-    'hero.title': 'Full-Stack Web Development · UI/UX Design · E-commerce',
-    'hero.desc': "We design and build exceptional websites — from elegant landing pages to powerful e-commerce stores and dynamic dashboards. Every pixel is intentional.",
-    'hero.cta1': 'View Our Work →',
-    'hero.cta2': 'Get In Touch',
-    'hero.scroll': 'Scroll',
-    'stats.projects': 'Projects Delivered',
-    'stats.satisfaction': 'Client Satisfaction %',
-    'stats.experience': 'Years Experience',
-    'stats.clients': 'Happy Clients',
-    'about.title': 'About <em>Us</em>',
-    'about.badge': 'Years Exp.',
-    'about.heading': 'We turn ideas into remarkable websites.',
-    'about.p1': "Hello! We're a passionate web development team with a sharp eye for design and a love for clean, performant code. We specialize in building websites that not only look stunning but also deliver results.",
-    'about.p2': "From crafting pixel-perfect landing pages to building feature-rich e-commerce platforms and interactive dashboards — we bring a full spectrum of skills to every project.",
-    'skill.ecommerce': 'E-commerce',
-    'skill.perf': 'Performance Opt.',
-    'skill.responsive': 'Responsive Design',
-    'projects.title': 'Selected <em>Work</em>',
-    'project.open': 'Open Site',
-    'project.visit': 'Visit Project',
-    'services.title': 'What We <em>Offer</em>',
-    'service1.name': 'Landing Pages',
-    'service1.desc': 'High-converting landing pages with compelling copy, beautiful design, and optimized calls-to-action that turn visitors into customers.',
-    'service2.name': 'E-commerce Stores',
-    'service2.desc': 'Full-featured online stores with seamless checkout flows, product management, payment integration, and mobile-first design.',
-    'service3.name': 'Web Applications',
-    'service3.desc': 'Custom dashboards, SaaS platforms, and interactive web apps built with modern frameworks for performance and scalability.',
-    'service4.name': 'Portfolio Sites',
-    'service4.desc': 'Bespoke portfolio websites that showcase creative work beautifully, leaving a lasting impression on every visitor.',
-    'service5.name': 'Blog & CMS',
-    'service5.desc': 'Content-driven websites with powerful CMS integrations — easy to manage, fast to load, great for SEO.',
-    'service6.name': 'Redesign & Optimization',
-    'service6.desc': 'Transform outdated websites into modern, fast, accessible experiences. Performance audits, UX improvements, and visual refresh.',
-    'contact.title': "Let's <em>Connect</em>",
-    'contact.heading': 'Have a project<br>in <em>mind?</em>',
-    'contact.desc': "We are always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Let's build something exceptional together.",
-    'contact.email': 'Email',
-    'contact.location': 'Location',
-    'contact.city': 'ZAKHO',
-    'contact.response': 'Response Time',
-    'contact.responseVal': 'Within 24 hours',
-    'contact.phone': 'Phone Number',
-    'form.name': 'Your Name',
-    'form.email': 'Email Address',
-    'form.subject': 'Project Type',
-    'form.message': 'Tell me about your project...',
-    'form.send': 'Send Message',
-    'form.success': '✓   MESSAGE SENT — I\'ll be in touch soon!',
-    'form.alert': 'Please fill in your name, email, and message.',
-    'footer.credit': 'Created By'
-  },
-
-  ku: {
-    dir: 'rtl',
-    label: 'کو',
-    'nav.about': 'دەربارە',
-    'nav.work': 'کارەکانم',
-    'nav.services': 'خزمەتگوزاریەکان',
-    'nav.contact': 'پەیوەندی',
-    'hero.eyebrow': 'دیزاینەر و گەشەپێدەری وێب',
-    'hero.name': 'دروستکرنا ئەزموونی<br><em>دیجیتاڵی</em><br>گرینگ',
-    'hero.title': 'گەشەپێدانی وێب · دیزاینی UI/UX · فرۆشگای ئۆنلاین',
-    'hero.desc': 'ئەم وێبسایتا دیزاین دکەن و دەم درووستدکەن — ل پەڕەی فروشتن تا دکانێت ئونلاین یێ بهێز و داشبۆردی دینامیکی. هەر پیکسێلێک مەبەستا مەیە .',
-    'hero.cta1': 'کارێت مە ببینە →',
-    'hero.cta2': 'پەیوەندیێ بمەبکە',
-    'hero.scroll': 'ببەخارێ ',
-    'stats.projects': 'پروژێن تەمامکری ',
-    'stats.satisfaction': '٪ رازیبونا کریارا',
-    'stats.experience': 'سالێت ئەزموون',
-    'stats.clients': 'کریارێن کەیفخوش',
-    'about.title': 'دەربارەی <em>مە</em>',
-    'about.badge': 'سالێت ئەزموون',
-    'about.heading': 'ئەم بیرۆکێن هەوە دگهورین بو وێبسایتی نایاب.',
-    'about.p1': 'سلاف! ئەم گەشەپێدەرێن وێبین ب دیتنەکا تیژ بۆ دیزاین و حەزامە بۆ کۆدی پاقژ و باش. ئەم پسپورن د درووستکرنا وێبسایتا کو نە ب تنێ سەرنجراکێش  بەلکو ئەنجامی دیاردکت.',
-    'about.p2': 'د دروستکرنا پەڕەی فرۆشتن بۆ پلاتفۆرمی ئیکومێرش و داشبۆردی کارکرنێ — هەمی شارەزایێتخوە بۆ هەر پڕۆژەیەک ددنە شولی.',
-    'skill.ecommerce': 'فرۆشگای ئۆنلاین',
-    'skill.perf': 'باشکرنا کاری',
-    'skill.responsive': 'دیزاینی ریسپونسێڤ',
-    'projects.title': 'کارێت <em>هەلبژارتی</em>',
-    'project.open': 'سایتی ڤەکە',
-    'project.visit': 'سەرەدانا پرۆژا بکە',
-    'services.title': 'چ <em>پێشکێش دکەن</em>',
-    'service1.name': 'پەڕەی فرۆشتن',
-    'service1.desc': 'لاپەرێن نیشاندانا سەرەکی یێن ب رێژەیەکا بلند یا گۆهۆرینێ، ب نڤیسینەکا سەرنجڕاکێش، دیزاینەکا جوان، و بانگێشەیێن چالاکیێ یێن باشکرکری کو سەردانیکەران دکەنە کریار.',
-    'service2.name': 'فرۆشگاکانی ئیکۆمێرس',
-    'service2.desc': 'دکانێن ئۆنلاین یێن تەمام، ب پرۆسەیا پارەدانێ یا بێ کێشە، رێڤەبرنا بەرهەمان، ئێکگرتنا پارەدانێ، و دیزاینەکا سەرەکی یا مۆبایلی.',
-    'service3.name': 'بەرنامێت وێب',
-    'service3.desc': 'داشبۆردێن تایبەت، پلاتفۆرمێن SaaS، و ئەپێن وێبێ یێن کارلێکەر کو ب فریمۆرکێن نوی هاتینە چێکرن ژ بۆ کارایی و گەشەکرنێ.',
-    'service4.name': 'سایتی پۆرتفۆلیۆ',
-    'service4.desc': 'مالپەرێن پۆرتفۆلیۆ یێن تایبەت، کو کارێ هونەری ب جوانترین شێوە نیشان ددەن، و کارتێکرنەکا بەردەوام ل سەر هەر سەردانکارەکی دهێلن.',
-    'service5.name': 'بلۆگ و CMS',
-    'service5.desc': 'مالپەرێن کو ب ناڤەرۆکێ دهێنە برێڤەبرن دگەل سیستەمێن CMS یێن بهێز — ب ساناهی دهێنە رێڤەبرن، ب لەز دهێنە بارکرن، گەلەک باشە بو SEO.',
-    'service6.name': 'دووبارە دیزاینکرن و باشترکرن',
-    'service6.desc': 'مالپەرێن کەڤن بکە مالپەرێن نوی، ب لەز، و ب شێوەیەکێ کو هەمی کەس دشێن بکاربینن. پشکنینێن کارکرنێ، باشکرنا ئەزموونا بکاربەران، و نویکرنا دیمەنی.',
-    'contact.title': 'دا <em>پەیوەندیێ بکەین</em>',
-    'contact.heading': 'پروژەیەک<br>د <em>هزراتەدە هەیە؟</em>',
-    'contact.desc': 'ئەم هەردەم ئامادەین بۆ گۆتوبێژکرنا پرۆژەیێن نوو، بیرۆکەیێن داهێنەر، یان دەلیڤەیێن کو ببنە پشکەک ژ دیدا هەوە. وەرن با ب پێکڤە تشتەکێ نایاب ئاڤا بکەین.',
-    'contact.email': 'ئیمەیڵ',
-    'contact.location': 'جهـ',
-    'contact.city': 'زاخۆ',
-    'contact.response': 'وەختێ جابدانێ',
-    'contact.responseVal': 'د ناف ٢٤ دەمژمێرادا',
-    'contact.phone': 'ژمارا موبایلێ',
-    'form.name': 'ناڤێ تە',
-    'form.email': 'ناڤونیشانا ئیمەیڵ',
-    'form.subject': 'چ جورە پڕۆژە',
-    'form.message': 'بەحسا پروژێ خوەبکە  ...',
-    'form.send': 'ریسالێ پنێرە',
-    'form.success': '✓   ریسالاتە هات هنارتن — ل نێزیک دێ  پەیوەندیێ بتەکن!',
-    'form.alert': 'هیڤیە ناف، ئیمەیڵ و ریسالا خوە تژی بکە.',
-    'footer.credit': 'هاتیە دروستکرن'
-  },
-
-  ar: {
-    dir: 'rtl',
-    label: 'ع',
-    'nav.about': 'عنّي',
-    'nav.work': 'أعمالي',
-    'nav.services': 'خدماتي',
-    'nav.contact': 'تواصل',
-    'hero.eyebrow': 'مطوّر ومصمم مواقع',
-    'hero.name': 'صياغة تجارب<br><em>رقمية</em><br>تُحدث فرقاً',
-    'hero.title': 'تطوير الويب الشامل · تصميم UI/UX · التجارة الإلكترونية',
-    'hero.desc': 'أصمّم وأبني مواقع استثنائية — من صفحات الهبوط الأنيقة إلى متاجر التجارة الإلكترونية القوية ولوحات المعلومات الديناميكية. كل بيكسل مقصود.',
-    'hero.cta1': 'استعرض أعمالي →',
-    'hero.cta2': 'تواصل معي',
-    'hero.scroll': 'مرّر',
-    'stats.projects': 'مشروع منجز',
-    'stats.satisfaction': '٪ رضا العملاء',
-    'stats.experience': 'سنوات خبرة',
-    'stats.clients': 'عميل سعيد',
-    'about.title': 'عن <em>نفسي</em>',
-    'about.badge': 'سنوات خبرة',
-    'about.heading': 'نحوّل الأفكار إلى مواقع رائعة.',
-    'about.p1': 'مرحباً! أنا مطوّر ويب شغوف بعين حادة للتصميم وحبٍّ للكود النظيف والفعّال. متخصص في بناء مواقع لا تبدو رائعة فحسب، بل تحقق النتائج.',
-    'about.p2': 'من صياغة صفحات هبوط مثالية البكسل إلى بناء منصات تجارة إلكترونية غنية بالميزات ولوحات معلومات تفاعلية — أجلب طيفاً كاملاً من المهارات لكل مشروع.',
-    'skill.ecommerce': 'التجارة الإلكترونية',
-    'skill.perf': 'تحسين الأداء',
-    'skill.responsive': 'التصميم المتجاوب',
-    'projects.title': 'أعمال <em>مختارة</em>',
-    'project.open': 'فتح الموقع',
-    'project.visit': 'زيارة المشروع',
-    'services.title': 'ما أقدّمه <em>لك</em>',
-    'service1.name': 'صفحات الهبوط',
-    'service1.desc': 'صفحات هبوط عالية التحويل بمحتوى مقنع وتصميم جميل ودعوات للعمل محسّنة تحوّل الزوار إلى عملاء.',
-    'service2.name': 'متاجر إلكترونية',
-    'service2.desc': 'متاجر إلكترونية متكاملة بتدفق دفع سلس وإدارة منتجات ودمج مدفوعات وتصميم يُقدّم الجوال أولاً.',
-    'service3.name': 'تطبيقات الويب',
-    'service3.desc': 'لوحات تحكم مخصصة ومنصات SaaS وتطبيقات ويب تفاعلية مبنية بأطر عمل حديثة للأداء وقابلية التوسع.',
-    'service4.name': 'مواقع البورتفوليو',
-    'service4.desc': 'مواقع بورتفوليو مميزة تعرض الأعمال الإبداعية بجمال، وتترك انطباعاً لا يُنسى لدى كل زائر.',
-    'service5.name': 'المدونات ونظام CMS',
-    'service5.desc': 'مواقع قائمة على المحتوى مع تكاملات CMS قوية — سهلة الإدارة، سريعة التحميل، ممتازة لتحسين محركات البحث.',
-    'service6.name': 'إعادة التصميم والتحسين',
-    'service6.desc': 'تحويل المواقع القديمة إلى تجارب حديثة وسريعة وسهلة الوصول. تدقيق الأداء وتحسينات UX والتحديث البصري.',
-    'contact.title': 'لنتواصل <em>معاً</em>',
-    'contact.heading': 'هل لديك مشروع<br>في <em>ذهنك؟</em>',
-    'contact.desc': 'أنا دائماً منفتح على مناقشة مشاريع جديدة أو أفكار إبداعية أو فرص للمشاركة في رؤيتك. دعنا نبني شيئاً استثنائياً معاً.',
-    'contact.email': 'البريد الإلكتروني',
-    'contact.location': 'الموقع',
-    'contact.city': 'زاخو',
-    'contact.response': 'وقت الاستجابة',
-    'contact.responseVal': 'خلال ٢٤ ساعة',
-    'contact.phone': 'رقم الهاتف',
-    'form.name': 'اسمك',
-    'form.email': 'عنوان البريد',
-    'form.subject': 'نوع المشروع',
-    'form.message': 'أخبرني عن مشروعك...',
-    'form.send': 'إرسال الرسالة',
-    'form.success': '✓   تم إرسال رسالتك — سأتواصل معك قريباً!',
-    'form.alert': 'من فضلك أدخل الاسم والبريد الإلكتروني والرسالة.',
-    'footer.credit': 'تصميم وتطوير'
-  },
-
-  tr: {
-    dir: 'ltr',
-    label: 'TR',
-    'nav.about': 'Hakkımızda',
-    'nav.work': 'Çalışmalar',
-    'nav.services': 'Hizmetler',
-    'nav.contact': 'İletişimiz',
-    'hero.eyebrow': 'Web Geliştirici & Tasarımcı',
-    'hero.name': 'Önemli Dijital<br><em>Deneyimler</em><br>Tasarlıyorum',
-    'hero.title': 'Full-Stack Web Geliştirme · UI/UX Tasarım · E-ticaret',
-    'hero.desc': 'Şık açılış sayfalarından güçlü e-ticaret mağazalarına ve dinamik panellere kadar olağanüstü web siteleri tasarlıyor ve geliştiriyorum. Her piksel kasıtlıdır.',
-    'hero.cta1': 'Çalışmalarımı Gör →',
-    'hero.cta2': 'İletişime Geç',
-    'hero.scroll': 'Kaydır',
-    'stats.projects': 'Tamamlanan Proje',
-    'stats.satisfaction': '% Müşteri Memnuniyeti',
-    'stats.experience': 'Yıllık Deneyim',
-    'stats.clients': 'Mutlu Müşteri',
-    'about.title': 'Hakkımda <em>Bilgi</em>',
-    'about.badge': 'Yıllık Deneyim',
-    'about.heading': 'Fikirleri olağanüstü web sitelerine dönüştürüyoruz.',
-    'about.p1': 'Merhaba! Tasarıma keskin gözü ve temiz, performanslı koda sevgisiyle tutkulu bir web geliştiricisiyim. Yalnızca çarpıcı görünmekle kalmayıp sonuç da veren web siteleri geliştirme konusunda uzmanlaşıyorum.',
-    'about.p2': 'Piksel mükemmeliyetinde açılış sayfaları oluşturmaktan zengin özellikli e-ticaret platformları ve etkileşimli paneller inşa etmeye kadar — her projeye tam bir beceri yelpazesi getiriyorum.',
-    'skill.ecommerce': 'E-ticaret',
-    'skill.perf': 'Performans Opt.',
-    'skill.responsive': 'Duyarlı Tasarım',
-    'projects.title': 'Seçili <em>Çalışmalar</em>',
-    'project.open': 'Siteyi Aç',
-    'project.visit': 'Projeyi Ziyaret Et',
-    'services.title': 'Sunduğum <em>Hizmetler</em>',
-    'service1.name': 'Açılış Sayfaları',
-    'service1.desc': 'Ziyaretçileri müşteriye dönüştüren, ikna edici kopya, güzel tasarım ve optimize edilmiş harekete geçirme ifadeleriyle yüksek dönüşümlü açılış sayfaları.',
-    'service2.name': 'E-ticaret Mağazaları',
-    'service2.desc': 'Sorunsuz ödeme akışları, ürün yönetimi, ödeme entegrasyonu ve mobil öncelikli tasarımla tam özellikli çevrimiçi mağazalar.',
-    'service3.name': 'Web Uygulamaları',
-    'service3.desc': 'Performans ve ölçeklenebilirlik için modern çerçevelerle oluşturulmuş özel paneller, SaaS platformları ve etkileşimli web uygulamaları.',
-    'service4.name': 'Portföy Siteleri',
-    'service4.desc': 'Yaratıcı çalışmaları güzel bir şekilde sergileyen ve her ziyaretçide kalıcı bir izlenim bırakan özgün portföy web siteleri.',
-    'service5.name': 'Blog & CMS',
-    'service5.desc': "Güçlü CMS entegrasyonlarıyla içerik odaklı web siteleri — kolay yönetim, hızlı yükleme, SEO için mükemmel.",
-    'service6.name': 'Yeniden Tasarım & Optimizasyon',
-    'service6.desc': "Eski web sitelerini modern, hızlı, erişilebilir deneyimlere dönüştürün. Performans denetimleri, UX iyileştirmeleri ve görsel yenileme.",
-    'contact.title': "Birlikte <em>Çalışalım</em>",
-    'contact.heading': 'Aklınızda bir proje<br>mi <em>var?</em>',
-    'contact.desc': "Yeni projeler, yaratıcı fikirler veya vizyonunuzun bir parçası olma fırsatlarını her zaman tartışmaya açığım. Birlikte olağanüstü bir şey inşa edelim.",
-    'contact.email': 'E-posta',
-    'contact.location': 'Konum',
-    'contact.city': 'ZAKHO',
-    'contact.response': 'Yanıt Süresi',
-    'contact.responseVal': '24 saat içinde',
-    'contact.phone': 'Telefon Numarası',
-    'form.name': 'Adınız',
-    'form.email': 'E-posta Adresi',
-    'form.subject': 'Proje Türü',
-    'form.message': 'Projeniz hakkında bilgi verin...',
-    'form.send': 'Mesaj Gönder',
-    'form.success': '✓   MESAJ GÖNDERİLDİ — Yakında sizinle iletişime geçeceğim!',
-    'form.alert': 'Lütfen adınızı, e-postanızı ve mesajınızı doldurun.',
-    'footer.credit': 'Oluşturan'
-  }
+  en: { dir: 'ltr', label: 'EN', 'nav.about': 'About', 'nav.work': 'Work', 'nav.services': 'Services', 'nav.contact': 'Contact', 'hero.eyebrow': 'Web Developer & Designer', 'hero.name': ' NIHAD<br><em>KOCHAR</em><br>', 'hero.title': 'Full-Stack Web Development · UI/UX Design · E-commerce', 'hero.desc': "We design and build exceptional websites — from elegant landing pages to powerful e-commerce stores and dynamic dashboards. Every pixel is intentional.", 'hero.cta1': 'View Our Work →', 'hero.cta2': 'Get In Touch', 'hero.scroll': 'Scroll', 'about.title': 'About <em>Us</em>', 'about.heading': 'We turn ideas into remarkable websites.', 'about.p1': "Hello! We're a passionate web development team with a sharp eye for design and a love for clean, performant code. We specialize in building websites that not only look stunning but also deliver results.", 'about.p2': "From crafting pixel-perfect landing pages to building feature-rich e-commerce platforms and interactive dashboards — we bring a full spectrum of skills to every project.", 'skill.ecommerce': 'E-commerce', 'skill.perf': 'Performance Opt.', 'skill.responsive': 'Responsive Design', 'projects.title': 'Selected <em>Work</em>', 'project.open': 'Open Site', 'project.visit': 'Visit Project', 'services.title': 'What We <em>Offer</em>', 'service1.name': 'Landing Pages', 'service1.desc': 'High-converting landing pages with compelling copy, beautiful design, and optimized calls-to-action that turn visitors into customers.', 'service2.name': 'E-commerce Stores', 'service2.desc': 'Full-featured online stores with seamless checkout flows, product management, payment integration, and mobile-first design.', 'service3.name': 'Web Applications', 'service3.desc': 'Custom dashboards, SaaS platforms, and interactive web apps built with modern frameworks for performance and scalability.', 'service4.name': 'Portfolio Sites', 'service4.desc': 'Bespoke portfolio websites that showcase creative work beautifully, leaving a lasting impression on every visitor.', 'service5.name': 'Blog & CMS', 'service5.desc': 'Content-driven websites with powerful CMS integrations — easy to manage, fast to load, great for SEO.', 'service6.name': 'Redesign & Optimization', 'service6.desc': 'Transform outdated websites into modern, fast, accessible experiences. Performance audits, UX improvements, and visual refresh.', 'contact.title': "Let's <em>Connect</em>", 'contact.heading': 'Have a project<br>in <em>mind?</em>', 'contact.desc': "We are always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Let's build something exceptional together.", 'contact.email': 'Email', 'contact.location': 'Location', 'contact.city': 'ZAKHO', 'contact.response': 'Response Time', 'contact.responseVal': 'Within 24 hours', 'contact.phone': 'Phone Number', 'form.name': 'Your Name', 'form.email': 'Email Address', 'form.subject': 'Project Type', 'form.message': 'Tell me about your project...', 'form.send': 'Send Message', 'form.success': '✓   MESSAGE SENT — I\'ll be in touch soon!', 'form.alert': 'Please fill in your name, email, and message.', 'footer.credit': 'Created By' },
+  ku: { dir: 'rtl', label: 'کو', 'nav.about': 'دەربارە', 'nav.work': 'کارەکانم', 'nav.services': 'خزمەتگوزاریەکان', 'nav.contact': 'پەیوەندی', 'hero.eyebrow': 'دیزاینەر و گەشەپێدەری وێب', 'hero.name': 'نیهاد <br><em>کوچەر</em><br>', 'hero.title': 'گەشەپێدانی وێب · دیزاینی UI/UX · فرۆشگای ئۆنلاین', 'hero.desc': 'ئەم وێبسایتا دیزاین دکەن و دەم درووستدکەن — ل پەڕەی فروشتن تا دکانێت ئونلاین یێ بهێز و داشبۆردی دینامیکی. هەر پیکسێلێک مەبەستا مەیە .', 'hero.cta1': 'کارێت مە ببینە →', 'hero.cta2': 'پەیوەندیێ بمەبکە', 'hero.scroll': 'ببەخارێ ', 'about.title': 'دەربارەی <em>مە</em>', 'about.heading': 'ئەم بیرۆکێن هەوە دگهورین بو وێبسایتی نایاب.', 'about.p1': 'سلاف! ئەم گەشەپێدەرێن وێبین ب دیتنەکا تیژ بۆ دیزاین و حەزامە بۆ کۆدی پاقژ و باش. ئەم پسپورن د درووستکرنا وێبسایتا کو نە ب تنێ سەرنجراکێش  بەلکو ئەنجامی دیاردکت.', 'about.p2': 'د دروستکرنا پەڕەی فرۆشتن بۆ پلاتفۆرمی ئیکومێرش و داشبۆردی کارکرنێ — هەمی شارەزایێتخوە بۆ هەر پڕۆژەیەک ددنە شولی.', 'skill.ecommerce': 'فرۆشگای ئۆنلاین', 'skill.perf': 'باشکرنا کاری', 'skill.responsive': 'دیزاینی ریسپونسێڤ', 'projects.title': 'کارێت <em>هەلبژارتی</em>', 'project.open': 'سایتی ڤەکە', 'project.visit': 'سەرەدانا پرۆژا بکە', 'services.title': 'چ <em>پێشکێش دکەن</em>', 'service1.name': 'پەڕەی فرۆشتن', 'service1.desc': 'لاپەرێن نیشاندانا سەرەکی یێن ب رێژەیەکا بلند یا گۆهۆرینێ، ب نڤیسینەکا سەرنجڕاکێش، دیزاینەکا جوان، و بانگێشەیێن چالاکیێ یێن باشکرکری کو سەردانیکەران دکەنە کریار.', 'service2.name': 'فرۆشگاکانی ئیکۆمێرس', 'service2.desc': 'دکانێن ئۆنلاین یێن تەمام، ب پرۆسەیا پارەدانێ یا بێ کێشە، رێڤەبرنا بەرهەمان، ئێکگرتنا پارەدانێ، و دیزاینەکا سەرەکی یا مۆبایلی.', 'service3.name': 'بەرنامێت وێب', 'service3.desc': 'داشبۆردێن تایبەت، پلاتفۆرمێن SaaS، و ئەپێن وێبێ یێن کارلێکەر کو ب فریمۆرکێن نوی هاتینە چێکرن ژ بۆ کارایی و گەشەکرنێ.', 'service4.name': 'سایتی پۆرتفۆلیۆ', 'service4.desc': 'مالپەرێن پۆرتفۆلیۆ یێن تایبەت، کو کارێ هونەری ب جوانترین شێوە نیشان ددەن، و کارتێکرنەکا بەردەوام ل سەر هەر سەردانکارەکی دهێلن.', 'service5.name': 'بلۆگ و CMS', 'service5.desc': 'مالپەرێن کو ب ناڤەرۆکێ دهێنە برێڤەبرن دگەل سیستەمێن CMS یێن بهێز — ب ساناهی دهێنە رێڤەبرن، ب لەز دهێنە بارکرن، گەلەک باشە بو SEO.', 'service6.name': 'دووبارە دیزاینکرن و باشترکرن', 'service6.desc': 'مالپەرێن کەڤن بکە مالپەرێن نوی، ب لەز، و ب شێوەیەکێ کو هەمی کەس دشێن بکاربینن. پشکنینێن کارکرنێ، باشکرنا ئەزموونا بکاربەران، و نویکرنا دیمەنی.', 'contact.title': 'دا <em>پەیوەندیێ بکەین</em>', 'contact.heading': 'پروژەیەک<br>د <em>هزراتەدە هەیە؟</em>', 'contact.desc': 'ئەم هەردەم ئامادەین بۆ گۆتوبێژکرنا پرۆژەیێن نوو، بیرۆکەیێن داهێنەر، یان دەلیڤەیێن کو ببنە پشکەک ژ دیدا هەوە. وەرن با ب پێکڤە تشتەکێ نایاب ئاڤا بکەین.', 'contact.email': 'ئیمەیڵ', 'contact.location': 'جهـ', 'contact.city': 'زاخۆ', 'contact.response': 'وەختێ جابدانێ', 'contact.responseVal': 'د ناف ٢٤ دەمژمێرادا', 'contact.phone': 'ژمارا موبایلێ', 'form.name': 'ناڤێ تە', 'form.email': 'ناڤونیشانا ئیمەیڵ', 'form.subject': 'چ جورە پڕۆژە', 'form.message': 'بەحسا پروژێ خوەبکە  ...', 'form.send': 'ریسالێ پنێرە', 'form.success': '✓   ریسالاتە هات هنارتن — ل نێزیک دێ  پەیوەندیێ بتەکن!', 'form.alert': 'هیڤیە ناف، ئیمەیڵ و ریسالا خوە تژی بکە.', 'footer.credit': 'هاتیە دروستکرن' },
+  ar: { dir: 'rtl', label: 'ع', 'nav.about': 'عنّي', 'nav.work': 'أعمالي', 'nav.services': 'خدماتي', 'nav.contact': 'تواصل', 'hero.eyebrow': 'مطوّر ومصمم مواقع', 'hero.name': 'نیهاد <br><em>کوچەر</em><br>', 'hero.title': 'تطوير الويب الشامل · تصميم UI/UX · التجارة الإلكترونية', 'hero.desc': 'أصمّم وأبني مواقع استثنائية — من صفحات الهبوط الأنيقة إلى متاجر التجارة الإلكترونية القوية ولوحات المعلومات الديناميكية. كل بيكسل مقصود.', 'hero.cta1': 'استعرض أعمالي →', 'hero.cta2': 'تواصل معي', 'hero.scroll': 'مرّر', 'about.title': 'عن <em>نفسي</em>', 'about.heading': 'نحوّل الأفكار إلى مواقع رائعة.', 'about.p1': 'مرحباً! أنا مطوّر ويب شغوف بعين حادة للتصميم وحبٍّ للكود النظيف والفعّال. متخصص في بناء مواقع لا تبدو رائعة فحسب، بل تحقق النتائج.', 'about.p2': 'من صياغة صفحات هبوط مثالية البكسل إلى بناء منصات تجارة إلكترونية غنية بالميزات ولوحات معلومات تفاعلية — أجلب طيفاً كاملاً من المهارات لكل مشروع.', 'skill.ecommerce': 'التجارة الإلكترونية', 'skill.perf': 'تحسين الأداء', 'skill.responsive': 'التصميم المتجاوب', 'projects.title': 'أعمال <em>مختارة</em>', 'project.open': 'فتح الموقع', 'project.visit': 'زيارة المشروع', 'services.title': 'ما أقدّمه <em>لك</em>', 'service1.name': 'صفحات الهبوط', 'service1.desc': 'صفحات هبوط عالية التحويل بمحتوى مقنع وتصميم جميل ودعوات للعمل محسّنة تحوّل الزوار إلى عملاء.', 'service2.name': 'متاجر إلكترونية', 'service2.desc': 'متاجر إلكترونية متكاملة بتدفق دفع سلس وإدارة منتجات ودمج مدفوعات وتصميم يُقدّم الجوال أولاً.', 'service3.name': 'تطبيقات الويب', 'service3.desc': 'لوحات تحكم مخصصة ومنصات SaaS وتطبيقات ويب تفاعلية مبنية بأطر عمل حديثة للأداء وقابلية التوسع.', 'service4.name': 'مواقع البورتفوليو', 'service4.desc': 'مواقع بورتفوليو مميزة تعرض الأعمال الإبداعية بجمال، وتترك انطباعاً لا يُنسى لدى كل زائر.', 'service5.name': 'المدونات ونظام CMS', 'service5.desc': 'مواقع قائمة على المحتوى مع تكاملات CMS قوية — سهلة الإدارة، سريعة التحميل، ممتازة لتحسين محركات البحث.', 'service6.name': 'إعادة التصميم والتحسين', 'service6.desc': 'تحويل المواقع القديمة إلى تجارب حديثة وسريعة وسهلة الوصول. تدقيق الأداء وتحسينات UX والتحديث البصري.', 'contact.title': 'لنتواصل <em>معاً</em>', 'contact.heading': 'هل لديك مشروع<br>في <em>ذهنك؟</em>', 'contact.desc': 'أنا دائماً منفتح على مناقشة مشاريع جديدة أو أفكار إبداعية أو فرص للمشاركة في رؤيتك. دعنا نبني شيئاً استثنائياً معاً.', 'contact.email': 'البريد الإلكتروني', 'contact.location': 'الموقع', 'contact.city': 'زاخو', 'contact.response': 'وقت الاستجابة', 'contact.responseVal': 'خلال ٢٤ ساعة', 'contact.phone': 'رقم الهاتف', 'form.name': 'اسمك', 'form.email': 'عنوان البريد', 'form.subject': 'نوع المشروع', 'form.message': 'أخبرني عن مشروعك...', 'form.send': 'إرسال الرسالة', 'form.success': '✓   تم إرسال رسالتك — سأتواصل معك قريباً!', 'form.alert': 'من فضلك أدخل الاسم والبريد الإلكتروني والرسالة.', 'footer.credit': 'تصميم وتطوير' },
+  tr: { dir: 'ltr', label: 'TR', 'nav.about': 'Hakkımızda', 'nav.work': 'Çalışmalar', 'nav.services': 'Hizmetler', 'nav.contact': 'İletişimiz', 'hero.eyebrow': 'Web Geliştirici & Tasarımcı', 'hero.name': 'NIHAD <br><em>KOCHAR</em><br>', 'hero.title': 'Full-Stack Web Geliştirme · UI/UX Tasarım · E-ticaret', 'hero.desc': 'Şık açılış sayfalarından güçlü e-ticaret mağazalarına ve dinamik panellere kadar olağanüstü web siteleri tasarlıyor ve geliştiriyorum. Her piksel kasıtlıdır.', 'hero.cta1': 'Çalışmalarımı Gör →', 'hero.cta2': 'İletişime Geç', 'hero.scroll': 'Kaydır', 'about.title': 'Hakkımda <em>Bilgi</em>', 'about.heading': 'Fikirleri olağanüstü web sitelerine dönüştürüyoruz.', 'about.p1': 'Merhaba! Tasarıma keskin gözü ve temiz, performanslı koda sevgisiyle tutkulu bir web geliştiricisiyim. Yalnızca çarpıcı görünmekle kalmayıp sonuç da veren web siteleri geliştirme konusunda uzmanlaşıyorum.', 'about.p2': 'Piksel mükemmeliyetinde açılış sayfaları oluşturmaktan zengin özellikli e-ticaret platformları ve etkileşimli paneller inşa etmeye kadar — her projeye tam bir beceri yelpazesi getiriyorum.', 'skill.ecommerce': 'E-ticaret', 'skill.perf': 'Performans Opt.', 'skill.responsive': 'Duyarlı Tasarım', 'projects.title': 'Seçili <em>Çalışmalar</em>', 'project.open': 'Siteyi Aç', 'project.visit': 'Projeyi Ziyaret Et', 'services.title': 'Sunduğum <em>Hizmetler</em>', 'service1.name': 'Açılış Sayfaları', 'service1.desc': 'Ziyaretçileri müşteriye dönüştüren, ikna edici kopya, güzel tasarım ve optimize edilmiş harekete geçirme ifadeleriyle yüksek dönüşümlü açılış sayfaları.', 'service2.name': 'E-ticaret Mağazaları', 'service2.desc': 'Sorunsuz ödeme akışları, ürün yönetimi, ödeme entegrasyonu ve mobil öncelikli tasarımla tam özellikli çevrimiçi mağazalar.', 'service3.name': 'Web Uygulamaları', 'service3.desc': 'Performans ve ölçeklenebilirlik için modern çerçevelerle oluşturulmuş özel paneller, SaaS platformları ve etkileşimli web uygulamaları.', 'service4.name': 'Portföy Siteleri', 'service4.desc': 'Yaratıcı çalışmaları güzel bir şekilde sergileyen ve her ziyaretçide kalıcı bir izlenim bırakan özgün portföy web siteleri.', 'service5.name': 'Blog & CMS', 'service5.desc': "Güçlü CMS entegrasyonlarıyla içerik odaklı web siteleri — kolay yönetim, hızlı yükleme, SEO için mükemmel.", 'service6.name': 'Yeniden Tasarım & Optimizasyon', 'service6.desc': "Eski web sitelerini modern, hızlı, erişilebilir deneyimlere dönüştürün. Performans denetimleri, UX iyileştirmeleri ve görsel yenileme.", 'contact.title': "Birlikte <em>Çalışalım</em>", 'contact.heading': 'Aklınızda bir proje<br>mi <em>var?</em>', 'contact.desc': "Yeni projeler, yaratıcı fikirler veya vizyonunuzun bir parçası olma fırsatlarını her zaman tartışmaya açığım. Birlikte olağanüstü bir şey inşa edelim.", 'contact.email': 'E-posta', 'contact.location': 'Konum', 'contact.city': 'ZAKHO', 'contact.response': 'Yanıt Süresi', 'contact.responseVal': '24 saat içinde', 'contact.phone': 'Telefon Numarası', 'form.name': 'Adınız', 'form.email': 'E-posta Adresi', 'form.subject': 'Proje Türü', 'form.message': 'Projeniz hakkında bilgi verin...', 'form.send': 'Mesaj Gönder', 'form.success': '✓   MESAJ GÖNDERİLDİ — Yakında sizinle iletişime geçeceğim!', 'form.alert': 'Lütfen adınızı, e-postanızı ve mesajınızı doldurun.', 'footer.credit': 'Oluşturan' }
 };
 
-// ─────────────────────────────────────────────
-//  LANGUAGE ENGINE
-// ─────────────────────────────────────────────
 let currentLang = 'en';
-
 function setLanguage(lang) {
   if (!translations[lang]) return;
   currentLang = lang;
   const t = translations[lang];
-
-  // Set dir & lang attr
   document.documentElement.setAttribute('dir', t.dir);
   document.documentElement.setAttribute('lang', lang);
-
-  // Update current label
   document.getElementById('currentLangLabel').textContent = t.label;
-
-  // Mark active option
-  document.querySelectorAll('.lang-option').forEach(opt => {
-    opt.classList.toggle('active', opt.dataset.lang === lang);
-  });
-
-  // Translate plain text nodes
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (t[key] !== undefined) el.textContent = t[key];
-  });
-
-  // Translate HTML nodes (with <em> etc.)
-  document.querySelectorAll('[data-i18n-html]').forEach(el => {
-    const key = el.getAttribute('data-i18n-html');
-    if (t[key] !== undefined) el.innerHTML = t[key];
-  });
-
-  // Rebuild projects with translated labels
+  document.querySelectorAll('.lang-option').forEach(opt => opt.classList.toggle('active', opt.dataset.lang === lang));
+  document.querySelectorAll('[data-i18n]').forEach(el => { const key = el.getAttribute('data-i18n'); if (t[key] !== undefined) el.textContent = t[key]; });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => { const key = el.getAttribute('data-i18n-html'); if (t[key] !== undefined) el.innerHTML = t[key]; });
   buildProjects();
-
-  // Close dropdown
   document.getElementById('langSwitcher').classList.remove('open');
 }
+function toggleLangDropdown() { document.getElementById('langSwitcher').classList.toggle('open'); }
+document.addEventListener('click', function(e) { const switcher = document.getElementById('langSwitcher'); if (!switcher.contains(e.target)) switcher.classList.remove('open'); });
 
-function toggleLangDropdown() {
-  document.getElementById('langSwitcher').classList.toggle('open');
-}
+// navbar scroll
+const navbarEl = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbarEl.classList.toggle('scrolled', window.scrollY > 40));
 
-// Close dropdown on outside click
-document.addEventListener('click', function(e) {
-  const switcher = document.getElementById('langSwitcher');
-  if (!switcher.contains(e.target)) {
-    switcher.classList.remove('open');
-  }
-});
-
-// ─────────────────────────────────────────────
-//  CURSOR
-// ─────────────────────────────────────────────
-const cursor = document.getElementById('cursor'), ring = document.getElementById('cursor-ring');
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-  setTimeout(() => { ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px'; }, 60);
-});
-
-// ─────────────────────────────────────────────
-//  NAVBAR SCROLL
-// ─────────────────────────────────────────────
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40));
-
-// ─────────────────────────────────────────────
-//  SCROLL REVEAL
-// ─────────────────────────────────────────────
+// reveal observer
 const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.12 });
+const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.12 });
 reveals.forEach(el => observer.observe(el));
 
-// ─────────────────────────────────────────────
-//  COUNT UP
-// ─────────────────────────────────────────────
-const counters = document.querySelectorAll('[data-count]');
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if(!entry.isIntersecting) return;
-    const el = entry.target, target = parseInt(el.dataset.count);
-    let start = 0; const duration = 1600;
-    const step = (timestamp) => {
-      if(!start) start = timestamp;
-      const progress = Math.min((timestamp - start)/duration, 1);
-      const eased = 1 - Math.pow(1-progress, 3);
-      el.textContent = Math.floor(eased * target);
-      if(progress < 1) requestAnimationFrame(step);
-      else el.textContent = target;
-    };
-    requestAnimationFrame(step);
-    counterObserver.unobserve(el);
-  });
-}, { threshold: 0.5 });
-counters.forEach(el => counterObserver.observe(el));
-
-// ─────────────────────────────────────────────
-//  PROJECTS
-// ─────────────────────────────────────────────
-const projects = [
+const projectsData = [
   { name: "Adaascentss Perfume", tag: "E-commerce", desc: "Luxury perfume brand website designed to highlight exclusive fragrances, enhance product discovery, and deliver a refined shopping experience.", url: "https://adaascentss.com/home.php", img: "images/adaascents.png" },
   { name: "Almansa Co.", tag: "Fruit Company", desc: "Modern fruit and vegetable company website offering fresh produce with easy browsing and online ordering.", url: "https://almansaco.site/", img: "images/almansa.png" },
   { name: "Salih Ibrahim Salih Co.", tag: "Fruit Company", desc: "Modern fruit and vegetable company website offering fresh produce with easy browsing and online ordering.", url: "https://salihibrahimsalihco.com/", img: "images/salih.png" },
-  { name: "Qesr Al Sultan Restaurant", tag: "Restaurant", desc: "Fully responsive restaurant website featuring an interactive menu, booking system, and seamless customer ordering flow.", url: "https://qesralsultan.xyz/", img: "images/qasr.png" },
-  { name: "Jamal Inventory Management", tag: "", desc: "Powerful inventory management system with real-time stock tracking, product control, and optimized workflow for business operations.", url: "https://birhatqader.github.io/heji-jamal/", img: "images/jamal.png" },
+  { name: "Qesr Al Sultan Restaurant", tag: "Restaurant", desc: "Fully responsive restaurant website featuring an interactive menu, booking system, and seamless customer ordering flow.", url: "https://birhatqader.github.io/qasrelsultan-rest-coffe/", img: "images/qasr.png" },
+  { name: "Profissional Company", tag: "", desc: "Advanced plumbing management system with real-time material tracking, pipe and equipment control, and streamlined workflow for efficient service operations", url: "https://birhatqader.github.io/profissional/", img: "images/6.png" },
   { name: "Haje Sardar", tag: "", desc: "Complete e-commerce solution featuring product browsing, cart system, secure checkout, and smooth user shopping experience.", url: "https://birhatqader.github.io/hajesardar-company/", img: "images/sardar.png" },
   { name: "Kochar Rest&Cafe", tag: "", desc: "Complete food & cafe solution featuring product browsing, cart system, secure checkout, and smooth user food experience.", url: "https://birhatqader.github.io/kochar_Res-Cofe//", img: "images/2.png" },
   { name: "Dhuke Rest&Cafe", tag: "", desc: "Complete e-commerce solution featuring product browsing, cart system, secure checkout, and smooth user shopping experience.", url: "https://birhatqader.github.io/dhuke_menu/", img: "images/3.png" },
-  { name: "Gourmet-Delight Rest&Cafe", tag: "", desc: "Complete e-commerce solution featuring product browsing, cart system, secure checkout, and smooth user shopping experience.", url: "https://birhatqader.github.io/Gourmet-Delight_rest/", img: "images/4.png" }
+  { name: "Gourmet-Delight Rest&Cafe", tag: "", desc: "Complete e-commerce solution featuring product browsing, cart system, secure checkout, and smooth user shopping experience.", url: "https://birhatqader.github.io/Gourmet-Delight_rest/", img: "images/4.png" },
+  { name: "Profissional Company", tag: "", desc: "Powerful plumbing management solution designed for real-time inventory tracking, precise control of pipes and fittings, and optimized workflows to enhance efficiency and service performance.", url: "https://birhatqader.github.io/profissional2/", img: "images/7.png" },
 ];
 
 function buildProjects() {
   const t = translations[currentLang];
   const grid = document.getElementById('projects-grid');
+  if(!grid) return;
   grid.innerHTML = '';
-  projects.forEach((p, i) => {
+  projectsData.forEach((p, i) => {
     const delay = i % 3;
     const card = document.createElement('a');
-    card.href = p.url;
-    card.target = '_blank';
-    card.rel = 'noopener noreferrer';
+    card.href = p.url; card.target = '_blank'; card.rel = 'noopener noreferrer';
     card.className = `project-card reveal reveal-delay-${delay}`;
     card.innerHTML = `
-      <div class="project-thumb">
-        <div class="browser-mock">
-          <div class="browser-bar">
-            <span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span>
-            <span class="browser-url">${p.url.replace('https://','')} — ${p.name}</span>
-          </div>
-          <div class="browser-body">
-            <img class="real-site-img" src="${p.img}" alt="${p.name} preview" loading="lazy">
-          </div>
-        </div>
-        <div class="project-overlay">
-          <div class="overlay-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></div>
-          <span class="overlay-label">${t['project.open'] || 'Open Site'}</span>
-        </div>
-      </div>
-      <div class="project-info">
-        <span class="project-tag">${p.tag}</span>
-        <div class="project-name">${p.name}</div>
-        <p class="project-desc">${p.desc}</p>
-        <span class="project-link-arrow">${t['project.visit'] || 'Visit Project'} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
-      </div>`;
+      <div class="project-thumb"><div class="browser-mock"><div class="browser-bar"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-url">${p.url.replace('https://','')} — ${p.name}</span></div><div class="browser-body"><img class="real-site-img" src="${p.img}" alt="${p.name} preview" loading="lazy"></div></div><div class="project-overlay"><div class="overlay-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></div><span class="overlay-label">${t['project.open'] || 'Open Site'}</span></div></div>
+      <div class="project-info"><span class="project-tag">${p.tag}</span><div class="project-name">${p.name}</div><p class="project-desc">${p.desc}</p><span class="project-link-arrow">${t['project.visit'] || 'Visit Project'} <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></div>`;
     grid.appendChild(card);
   });
   document.querySelectorAll('.project-card').forEach(el => observer.observe(el));
@@ -1192,9 +813,6 @@ function buildProjects() {
 
 buildProjects();
 
-// ─────────────────────────────────────────────
-//  CONTACT FORM
-// ─────────────────────────────────────────────
 window.handleSend = function() {
   const t = translations[currentLang];
   const name = document.getElementById('name').value.trim();
@@ -1211,8 +829,8 @@ window.handleSend = function() {
   ['name','email','subject','message'].forEach(id => document.getElementById(id).value = '');
   setTimeout(() => { successEl.style.display = 'none'; }, 5000);
 };
-
 document.getElementById("year").textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
+```
