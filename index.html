@@ -1,5 +1,3 @@
-Here is the full HTML code with the cursor changed to a normal default cursor instead of the custom one.
-```html
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -11,6 +9,7 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* Light/Dark mode variables */
     :root {
       --gold: #c9a84c;
       --gold-light: #e8c97a;
@@ -24,6 +23,19 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
       --border: rgba(201,168,76,0.18);
     }
 
+    body.light-mode {
+      --gold: #b8860b;
+      --gold-light: #d4a847;
+      --gold-dim: #9e6d1f;
+      --bg: #faf9f6;
+      --bg2: #f0efe8;
+      --bg3: #e8e6df;
+      --surface: #ffffff;
+      --text: #1f2a2e;
+      --text-muted: #5a6268;
+      --border: rgba(184,134,11,0.25);
+    }
+
     html { scroll-behavior: smooth; }
 
     body {
@@ -32,7 +44,8 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
       font-family: 'Montserrat', sans-serif;
       font-weight: 300;
       overflow-x: hidden;
-      cursor: default; /* ✅ NORMAL DEFAULT CURSOR */
+      cursor: default;
+      transition: background-color 0.3s ease, color 0.2s ease;
     }
 
     /* RTL support */
@@ -49,6 +62,9 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
       opacity: 0.028;
     }
+    body.light-mode::before {
+      opacity: 0.012;
+    }
 
     /* ── NAV ── */
     nav {
@@ -58,7 +74,11 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
       backdrop-filter: blur(18px);
       background: rgba(10,10,10,0.7);
       border-bottom: 1px solid transparent;
-      transition: border-color .4s, padding .4s;
+      transition: border-color .4s, padding .4s, background 0.2s;
+    }
+    body.light-mode nav {
+      background: rgba(250,249,246,0.85);
+      border-bottom-color: rgba(184,134,11,0.15);
     }
     nav.scrolled { border-color: var(--border); padding: 18px 60px; }
 
@@ -88,6 +108,39 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
     html[dir="rtl"] .nav-links a::after { left: auto; right: 0; }
     .nav-links a:hover { color: var(--gold); }
     .nav-links a:hover::after { width: 100%; }
+
+    /* ── THEME TOGGLE BUTTON ── */
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 8px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: all 0.25s;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .theme-toggle:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .theme-toggle i {
+      font-size: 1rem;
+      transition: transform 0.2s ease;
+    }
+    .theme-toggle:hover i {
+      transform: rotate(15deg);
+    }
+    body.light-mode .theme-toggle .fa-moon { display: inline-block; }
+    body.light-mode .theme-toggle .fa-sun { display: none; }
+    body:not(.light-mode) .theme-toggle .fa-moon { display: none; }
+    body:not(.light-mode) .theme-toggle .fa-sun { display: inline-block; }
 
     /* ── LANGUAGE SWITCHER ── */
     .lang-switcher {
@@ -120,13 +173,13 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
       position: absolute;
       top: calc(100% + 8px);
       right: 0;
-      background: #1a1a1a;
+      background: var(--bg2);
       border: 1px solid var(--border);
       min-width: 160px;
       opacity: 0;
       visibility: hidden;
       transform: translateY(-8px);
-      transition: opacity .25s, transform .25s, visibility .25s;
+      transition: opacity .25s, transform .25s, visibility .25s, background 0.2s;
       z-index: 200;
     }
     html[dir="rtl"] .lang-dropdown { right: auto; left: 0; }
@@ -163,6 +216,11 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
         radial-gradient(ellipse 70% 60% at 70% 50%, rgba(201,168,76,0.07) 0%, transparent 65%),
         radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,0.04) 0%, transparent 60%);
     }
+    body.light-mode .hero-bg {
+      background:
+        radial-gradient(ellipse 70% 60% at 70% 50%, rgba(184,134,11,0.12) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 20% 80%, rgba(184,134,11,0.08) 0%, transparent 60%);
+    }
 
     .hero-lines {
       position: absolute; inset: 0; z-index: 0; pointer-events: none;
@@ -176,6 +234,10 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
     }
     .hero-lines::before { width: 700px; height: 700px; top: 50%; right: -200px; transform: translateY(-50%); }
     .hero-lines::after  { width: 400px; height: 400px; top: 50%; right: -50px; transform: translateY(-50%); }
+    body.light-mode .hero-lines::before,
+    body.light-mode .hero-lines::after {
+      border-color: rgba(184,134,11,0.12);
+    }
 
     .hero-inner { position: relative; z-index: 1; max-width: 900px; }
 
@@ -331,7 +393,7 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
     .skill-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
 
     /* ── PROJECTS ── */
-    #projects { padding: 120px 0; background: linear-gradient(to bottom, var(--bg), var(--bg2), var(--bg)); }
+    #projects { padding: 120px 0; background: linear-gradient(to bottom, var(--bg), var(--bg2), var(--bg)); transition: background 0.3s; }
 
     .projects-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
@@ -342,7 +404,7 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
       background: var(--surface);
       border: 1px solid var(--border);
       cursor: pointer;
-      transition: border-color .4s;
+      transition: border-color .4s, background 0.2s;
       text-decoration: none; color: inherit;
       display: block;
     }
@@ -491,7 +553,7 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
       background: var(--surface); border: 1px solid var(--border);
       color: var(--text); font-family: 'Montserrat', sans-serif; font-size: .82rem;
       outline: none; resize: none;
-      transition: border-color .3s;
+      transition: border-color .3s, background 0.2s;
       cursor: text;
     }
     .form-group input:focus, .form-group textarea:focus { border-color: var(--gold); }
@@ -557,6 +619,7 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
       nav { padding: 20px 24px; }
       nav.scrolled { padding: 14px 24px; }
       .nav-links { display: none; }
+      .nav-right { gap: 16px; }
       .container { padding: 0 24px; }
       #hero { padding: 100px 24px 80px; }
       .hero-scroll { left: 24px; }
@@ -596,6 +659,12 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
       <li><a href="#services" data-i18n="nav.services">Services</a></li>
       <li><a href="#contact" data-i18n="nav.contact">Contact</a></li>
     </ul>
+    <!-- DARK/LIGHT MODE BUTTON -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Switch theme">
+      <i class="fas fa-sun"></i>
+      <i class="fas fa-moon"></i>
+      <span id="themeLabel">Light</span>
+    </button>
     <div class="lang-switcher" id="langSwitcher">
       <button class="lang-btn" id="langBtn" onclick="toggleLangDropdown()">
         <span class="lang-globe">🌐</span>
@@ -628,133 +697,54 @@ Here is the full HTML code with the cursor changed to a normal default cursor in
   </div>
 </nav>
 
-<section id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-lines"></div>
-  <div class="hero-inner">
-    <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div><span data-i18n="hero.eyebrow">Web Developer &amp; Designer</span></div>
-    <h1 class="hero-name" data-i18n-html="hero.name">NIHAD<br><em>KOCHAR</em><br></h1>
-    <p class="hero-title" data-i18n="hero.title">Full-Stack Web Development · UI/UX Design · E-commerce</p>
-    <p class="hero-desc" data-i18n="hero.desc">We design and build exceptional websites — from elegant landing pages to powerful e-commerce stores and dynamic dashboards. Every pixel is intentional.</p>
-    <div class="hero-cta">
-      <a href="#projects" class="btn-primary" data-i18n="hero.cta1">View Our Work <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
-      <a href="#contact" class="btn-ghost" data-i18n="hero.cta2">Get In Touch</a>
-    </div>
-  </div>
-  <div class="hero-scroll"><div class="scroll-line"></div><span data-i18n="hero.scroll">Scroll</span></div>
-</section>
+<!-- rest of HTML content identical (hero, about, projects etc) ... -->
+<!-- For brevity and preserving all sections, the remaining DOM elements are fully kept but I inline them -->
+<section id="hero"><div class="hero-bg"></div><div class="hero-lines"></div><div class="hero-inner"><div class="hero-eyebrow"><div class="hero-eyebrow-line"></div><span data-i18n="hero.eyebrow">Web Developer &amp; Designer</span></div><h1 class="hero-name" data-i18n-html="hero.name">NIHAD<br><em>KOCHAR</em><br></h1><p class="hero-title" data-i18n="hero.title">Full-Stack Web Development · UI/UX Design · E-commerce</p><p class="hero-desc" data-i18n="hero.desc">We design and build exceptional websites — from elegant landing pages to powerful e-commerce stores and dynamic dashboards. Every pixel is intentional.</p><div class="hero-cta"><a href="#projects" class="btn-primary" data-i18n="hero.cta1">View Our Work <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a><a href="#contact" class="btn-ghost" data-i18n="hero.cta2">Get In Touch</a></div></div><div class="hero-scroll"><div class="scroll-line"></div><span data-i18n="hero.scroll">Scroll</span></div></section>
 
-<section id="about">
-  <div class="container">
-    <div class="section-header reveal">
-      <span class="section-number">01</span>
-      <h2 class="section-title" data-i18n-html="about.title">About <em>Us</em></h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="about-grid">
-      <div class="about-image-wrap reveal">
-        <div class="about-image-frame"></div>
-        <div class="about-image-inner"><div class="about-initials">NIHAD QADER</div></div>
-      </div>
-      <div class="about-text">
-        <h3 class="reveal" data-i18n="about.heading">We turn ideas into remarkable websites.</h3>
-        <p class="reveal reveal-delay-1" data-i18n="about.p1">Hello! We're a passionate web development team with a sharp eye for design and a love for clean, performant code. We specialize in building websites that not only look stunning but also deliver results.</p>
-        <p class="reveal reveal-delay-2" data-i18n="about.p2">From crafting pixel-perfect landing pages to building feature-rich e-commerce platforms and interactive dashboards — we bring a full spectrum of skills to every project.</p>
-        <div class="skills-grid reveal reveal-delay-3">
-          <div class="skill-item"><div class="skill-dot"></div>HTML / CSS / JS</div>
-          <div class="skill-item"><div class="skill-dot"></div>React / Next.js</div>
-          <div class="skill-item"><div class="skill-dot"></div><span data-i18n="skill.ecommerce">E-commerce</span></div>
-          <div class="skill-item"><div class="skill-dot"></div>UI / UX Design</div>
-          <div class="skill-item"><div class="skill-dot"></div>Node.js / APIs</div>
-          <div class="skill-item"><div class="skill-dot"></div><span data-i18n="skill.perf">Performance Opt.</span></div>
-          <div class="skill-item"><div class="skill-dot"></div><span data-i18n="skill.responsive">Responsive Design</span></div>
-          <div class="skill-item"><div class="skill-dot"></div>SEO &amp; Analytics</div>
-          <div class="skill-item"><div class="skill-dot"></div>PHP / LARAVEL</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<section id="about"><div class="container"><div class="section-header reveal"><span class="section-number">01</span><h2 class="section-title" data-i18n-html="about.title">About <em>Us</em></h2><div class="section-line"></div></div><div class="about-grid"><div class="about-image-wrap reveal"><div class="about-image-frame"></div><div class="about-image-inner"><div class="about-initials">NIHAD QADER</div></div></div><div class="about-text"><h3 class="reveal" data-i18n="about.heading">We turn ideas into remarkable websites.</h3><p class="reveal reveal-delay-1" data-i18n="about.p1">Hello! We're a passionate web development team with a sharp eye for design and a love for clean, performant code. We specialize in building websites that not only look stunning but also deliver results.</p><p class="reveal reveal-delay-2" data-i18n="about.p2">From crafting pixel-perfect landing pages to building feature-rich e-commerce platforms and interactive dashboards — we bring a full spectrum of skills to every project.</p><div class="skills-grid reveal reveal-delay-3"><div class="skill-item"><div class="skill-dot"></div>HTML / CSS / JS</div><div class="skill-item"><div class="skill-dot"></div>React / Next.js</div><div class="skill-item"><div class="skill-dot"></div><span data-i18n="skill.ecommerce">E-commerce</span></div><div class="skill-item"><div class="skill-dot"></div>UI / UX Design</div><div class="skill-item"><div class="skill-dot"></div>Node.js / APIs</div><div class="skill-item"><div class="skill-dot"></div><span data-i18n="skill.perf">Performance Opt.</span></div><div class="skill-item"><div class="skill-dot"></div><span data-i18n="skill.responsive">Responsive Design</span></div><div class="skill-item"><div class="skill-dot"></div>SEO &amp; Analytics</div><div class="skill-item"><div class="skill-dot"></div>PHP / LARAVEL</div></div></div></div></div></section>
 
-<section id="projects">
-  <div class="container">
-    <div class="section-header reveal">
-      <span class="section-number">02</span>
-      <h2 class="section-title" data-i18n-html="projects.title">Selected <em>Work</em></h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="projects-grid" id="projects-grid"></div>
-  </div>
-</section>
+<section id="projects"><div class="container"><div class="section-header reveal"><span class="section-number">02</span><h2 class="section-title" data-i18n-html="projects.title">Selected <em>Work</em></h2><div class="section-line"></div></div><div class="projects-grid" id="projects-grid"></div></div></section>
 
-<section id="services">
-  <div class="container">
-    <div class="section-header reveal">
-      <span class="section-number">03</span>
-      <h2 class="section-title" data-i18n-html="services.title">What We <em>Offer</em></h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="services-grid">
-      <div class="service-item reveal"><span class="service-number">001</span><h3 class="service-name" data-i18n="service1.name">Landing Pages</h3><p class="service-desc" data-i18n="service1.desc">High-converting landing pages with compelling copy, beautiful design, and optimized calls-to-action that turn visitors into customers.</p></div>
-      <div class="service-item reveal reveal-delay-1"><span class="service-number">002</span><h3 class="service-name" data-i18n="service2.name">E-commerce Stores</h3><p class="service-desc" data-i18n="service2.desc">Full-featured online stores with seamless checkout flows, product management, payment integration, and mobile-first design.</p></div>
-      <div class="service-item reveal reveal-delay-2"><span class="service-number">003</span><h3 class="service-name" data-i18n="service3.name">Web Applications</h3><p class="service-desc" data-i18n="service3.desc">Custom dashboards, SaaS platforms, and interactive web apps built with modern frameworks for performance and scalability.</p></div>
-      <div class="service-item reveal reveal-delay-1"><span class="service-number">004</span><h3 class="service-name" data-i18n="service4.name">Portfolio Sites</h3><p class="service-desc" data-i18n="service4.desc">Bespoke portfolio websites that showcase creative work beautifully, leaving a lasting impression on every visitor.</p></div>
-      <div class="service-item reveal reveal-delay-2"><span class="service-number">005</span><h3 class="service-name" data-i18n="service5.name">Blog &amp; CMS</h3><p class="service-desc" data-i18n="service5.desc">Content-driven websites with powerful CMS integrations — easy to manage, fast to load, great for SEO.</p></div>
-      <div class="service-item reveal reveal-delay-3"><span class="service-number">006</span><h3 class="service-name" data-i18n="service6.name">Redesign &amp; Optimization</h3><p class="service-desc" data-i18n="service6.desc">Transform outdated websites into modern, fast, accessible experiences. Performance audits, UX improvements, and visual refresh.</p></div>
-    </div>
-  </div>
-</section>
+<section id="services"><div class="container"><div class="section-header reveal"><span class="section-number">03</span><h2 class="section-title" data-i18n-html="services.title">What We <em>Offer</em></h2><div class="section-line"></div></div><div class="services-grid"><div class="service-item reveal"><span class="service-number">001</span><h3 class="service-name" data-i18n="service1.name">Landing Pages</h3><p class="service-desc" data-i18n="service1.desc">High-converting landing pages with compelling copy, beautiful design, and optimized calls-to-action that turn visitors into customers.</p></div><div class="service-item reveal reveal-delay-1"><span class="service-number">002</span><h3 class="service-name" data-i18n="service2.name">E-commerce Stores</h3><p class="service-desc" data-i18n="service2.desc">Full-featured online stores with seamless checkout flows, product management, payment integration, and mobile-first design.</p></div><div class="service-item reveal reveal-delay-2"><span class="service-number">003</span><h3 class="service-name" data-i18n="service3.name">Web Applications</h3><p class="service-desc" data-i18n="service3.desc">Custom dashboards, SaaS platforms, and interactive web apps built with modern frameworks for performance and scalability.</p></div><div class="service-item reveal reveal-delay-1"><span class="service-number">004</span><h3 class="service-name" data-i18n="service4.name">Portfolio Sites</h3><p class="service-desc" data-i18n="service4.desc">Bespoke portfolio websites that showcase creative work beautifully, leaving a lasting impression on every visitor.</p></div><div class="service-item reveal reveal-delay-2"><span class="service-number">005</span><h3 class="service-name" data-i18n="service5.name">Blog &amp; CMS</h3><p class="service-desc" data-i18n="service5.desc">Content-driven websites with powerful CMS integrations — easy to manage, fast to load, great for SEO.</p></div><div class="service-item reveal reveal-delay-3"><span class="service-number">006</span><h3 class="service-name" data-i18n="service6.name">Redesign &amp; Optimization</h3><p class="service-desc" data-i18n="service6.desc">Transform outdated websites into modern, fast, accessible experiences. Performance audits, UX improvements, and visual refresh.</p></div></div></div></section>
 
-<section id="contact">
-  <div class="container">
-    <div class="section-header reveal">
-      <span class="section-number">04</span>
-      <h2 class="section-title" data-i18n-html="contact.title">Let's <em>Connect</em></h2>
-      <div class="section-line"></div>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-left reveal">
-        <h3 data-i18n-html="contact.heading">Have a project<br>in <em>mind?</em></h3>
-        <p data-i18n="contact.desc">We are always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Let's build something exceptional together.</p>
-        <div class="contact-details">
-          <div class="contact-detail"><span class="contact-detail-icon">✉</span><div class="contact-detail-info"><label data-i18n="contact.email">Email</label><span>nihadqadir8@gmail.com</span></div></div>
-          <div class="contact-detail"><span class="contact-detail-icon">◎</span><div class="contact-detail-info"><label data-i18n="contact.location">Location</label><span data-i18n="contact.city">ZAKHO</span></div></div>
-          <div class="contact-detail"><span class="contact-detail-icon">◷</span><div class="contact-detail-info"><label data-i18n="contact.response">Response Time</label><span data-i18n="contact.responseVal">Within 24 hours</span></div></div>
-          <div class="contact-detail"><a href="https://wa.me/9647512393800" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;"><span class="contact-detail-icon">📞</span><div class="contact-detail-info"><label data-i18n="contact.phone">Phone Number</label><span>+964 751 239 3800</span></div></a></div>
-        </div>
-      </div>
-      <div class="contact-form reveal reveal-delay-2">
-        <div class="form-group"><input type="text" id="name" placeholder="x" /><label for="name" data-i18n="form.name">Your Name</label></div>
-        <div class="form-group"><input type="email" id="email" placeholder="x" /><label for="email" data-i18n="form.email">Email Address</label></div>
-        <div class="form-group"><input type="text" id="subject" placeholder="x" /><label for="subject" data-i18n="form.subject">Project Type</label></div>
-        <div class="form-group"><textarea id="message" rows="5" placeholder="x"></textarea><label for="message" data-i18n="form.message">Tell me about your project...</label></div>
-        <button class="btn-primary" onclick="handleSend()" style="width:100%;justify-content:center;" data-i18n="form.send">Send Message <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
-        <div id="form-success" style="display:none;text-align:center;padding:16px;border:1px solid var(--gold);color:var(--gold);font-size:.75rem;letter-spacing:.15em;margin-top:8px;" data-i18n="form.success">✓ &nbsp; MESSAGE SENT — I'll be in touch soon!</div>
-      </div>
-    </div>
-  </div>
-</section>
+<section id="contact"><div class="container"><div class="section-header reveal"><span class="section-number">04</span><h2 class="section-title" data-i18n-html="contact.title">Let's <em>Connect</em></h2><div class="section-line"></div></div><div class="contact-grid"><div class="contact-left reveal"><h3 data-i18n-html="contact.heading">Have a project<br>in <em>mind?</em></h3><p data-i18n="contact.desc">We are always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Let's build something exceptional together.</p><div class="contact-details"><div class="contact-detail"><span class="contact-detail-icon">✉</span><div class="contact-detail-info"><label data-i18n="contact.email">Email</label><span>nihadqadir8@gmail.com</span></div></div><div class="contact-detail"><span class="contact-detail-icon">◎</span><div class="contact-detail-info"><label data-i18n="contact.location">Location</label><span data-i18n="contact.city">ZAKHO</span></div></div><div class="contact-detail"><span class="contact-detail-icon">◷</span><div class="contact-detail-info"><label data-i18n="contact.response">Response Time</label><span data-i18n="contact.responseVal">Within 24 hours</span></div></div><div class="contact-detail"><a href="https://wa.me/9647512393800" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;"><span class="contact-detail-icon">📞</span><div class="contact-detail-info"><label data-i18n="contact.phone">Phone Number</label><span>+964 751 239 3800</span></div></a></div></div></div><div class="contact-form reveal reveal-delay-2"><div class="form-group"><input type="text" id="name" placeholder="x" /><label for="name" data-i18n="form.name">Your Name</label></div><div class="form-group"><input type="email" id="email" placeholder="x" /><label for="email" data-i18n="form.email">Email Address</label></div><div class="form-group"><input type="text" id="subject" placeholder="x" /><label for="subject" data-i18n="form.subject">Project Type</label></div><div class="form-group"><textarea id="message" rows="5" placeholder="x"></textarea><label for="message" data-i18n="form.message">Tell me about your project...</label></div><button class="btn-primary" onclick="handleSend()" style="width:100%;justify-content:center;" data-i18n="form.send">Send Message <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button><div id="form-success" style="display:none;text-align:center;padding:16px;border:1px solid var(--gold);color:var(--gold);font-size:.75rem;letter-spacing:.15em;margin-top:8px;" data-i18n="form.success">✓ &nbsp; MESSAGE SENT — I'll be in touch soon!</div></div></div></div></section>
 
-<footer>
-  <div class="footer-logo">KO<span style="font-style:italic;font-weight:300;color:var(--text)">CHAR</span></div>
-  <p class="footer-copy">© <span id="year"></span> · <span data-i18n="footer.credit">Created By</span> <span class="brand-name">kochar.site</span></p>
-  <div class="footer-social-bar">
-    <a href="https://wa.me/9647512393800" class="social whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-    <a href="https://www.instagram.com/nihad_qader___?igsh=MTZ2MXh4OWl0ZTJobQ%3D%3D&utm_source=qr" class="social instagram" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
-  <!--   <a href="https://www.facebook.com/share/1DhEc1D55h/" class="social facebook" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a> -->
-  </div>
-</footer>
+<footer><div class="footer-logo">KO<span style="font-style:italic;font-weight:300;color:var(--text)">CHAR</span></div><p class="footer-copy">© <span id="year"></span> · <span data-i18n="footer.credit">Created By</span> <span class="brand-name">kochar.site</span></p><div class="footer-social-bar"><a href="https://wa.me/9647512393800" class="social whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a><a href="https://www.instagram.com/nihad_qader___?igsh=MTZ2MXh4OWl0ZTJobQ%3D%3D&utm_source=qr" class="social instagram" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></div></footer>
 
 <script>
-// TRANSLATIONS (same as original, but included for completeness)
+// Translations object (same as provided)
 const translations = {
   en: { dir: 'ltr', label: 'EN', 'nav.about': 'About', 'nav.work': 'Work', 'nav.services': 'Services', 'nav.contact': 'Contact', 'hero.eyebrow': 'Web Developer & Designer', 'hero.name': ' NIHAD<br><em>KOCHAR</em><br>', 'hero.title': 'Full-Stack Web Development · UI/UX Design · E-commerce', 'hero.desc': "We design and build exceptional websites — from elegant landing pages to powerful e-commerce stores and dynamic dashboards. Every pixel is intentional.", 'hero.cta1': 'View Our Work →', 'hero.cta2': 'Get In Touch', 'hero.scroll': 'Scroll', 'about.title': 'About <em>Us</em>', 'about.heading': 'We turn ideas into remarkable websites.', 'about.p1': "Hello! We're a passionate web development team with a sharp eye for design and a love for clean, performant code. We specialize in building websites that not only look stunning but also deliver results.", 'about.p2': "From crafting pixel-perfect landing pages to building feature-rich e-commerce platforms and interactive dashboards — we bring a full spectrum of skills to every project.", 'skill.ecommerce': 'E-commerce', 'skill.perf': 'Performance Opt.', 'skill.responsive': 'Responsive Design', 'projects.title': 'Selected <em>Work</em>', 'project.open': 'Open Site', 'project.visit': 'Visit Project', 'services.title': 'What We <em>Offer</em>', 'service1.name': 'Landing Pages', 'service1.desc': 'High-converting landing pages with compelling copy, beautiful design, and optimized calls-to-action that turn visitors into customers.', 'service2.name': 'E-commerce Stores', 'service2.desc': 'Full-featured online stores with seamless checkout flows, product management, payment integration, and mobile-first design.', 'service3.name': 'Web Applications', 'service3.desc': 'Custom dashboards, SaaS platforms, and interactive web apps built with modern frameworks for performance and scalability.', 'service4.name': 'Portfolio Sites', 'service4.desc': 'Bespoke portfolio websites that showcase creative work beautifully, leaving a lasting impression on every visitor.', 'service5.name': 'Blog & CMS', 'service5.desc': 'Content-driven websites with powerful CMS integrations — easy to manage, fast to load, great for SEO.', 'service6.name': 'Redesign & Optimization', 'service6.desc': 'Transform outdated websites into modern, fast, accessible experiences. Performance audits, UX improvements, and visual refresh.', 'contact.title': "Let's <em>Connect</em>", 'contact.heading': 'Have a project<br>in <em>mind?</em>', 'contact.desc': "We are always open to discussing new projects, creative ideas, or opportunities to be part of your vision. Let's build something exceptional together.", 'contact.email': 'Email', 'contact.location': 'Location', 'contact.city': 'ZAKHO', 'contact.response': 'Response Time', 'contact.responseVal': 'Within 24 hours', 'contact.phone': 'Phone Number', 'form.name': 'Your Name', 'form.email': 'Email Address', 'form.subject': 'Project Type', 'form.message': 'Tell me about your project...', 'form.send': 'Send Message', 'form.success': '✓   MESSAGE SENT — I\'ll be in touch soon!', 'form.alert': 'Please fill in your name, email, and message.', 'footer.credit': 'Created By' },
-  ku: { dir: 'rtl', label: 'کو', 'nav.about': 'دەربارە', 'nav.work': 'کارەکانم', 'nav.services': 'خزمەتگوزاریەکان', 'nav.contact': 'پەیوەندی', 'hero.eyebrow': 'دیزاینەر و گەشەپێدەری وێب', 'hero.name': 'نیهاد <br><em>کوچەر</em><br>', 'hero.title': 'گەشەپێدانی وێب · دیزاینی UI/UX · فرۆشگای ئۆنلاین', 'hero.desc': 'ئەم وێبسایتا دیزاین دکەن و دەم درووستدکەن — ل پەڕەی فروشتن تا دکانێت ئونلاین یێ بهێز و داشبۆردی دینامیکی. هەر پیکسێلێک مەبەستا مەیە .', 'hero.cta1': 'کارێت مە ببینە →', 'hero.cta2': 'پەیوەندیێ بمەبکە', 'hero.scroll': 'ببەخارێ ', 'about.title': 'دەربارەی <em>مە</em>', 'about.heading': 'ئەم بیرۆکێن هەوە دگهورین بو وێبسایتی نایاب.', 'about.p1': 'سلاف! ئەم گەشەپێدەرێن وێبین ب دیتنەکا تیژ بۆ دیزاین و حەزامە بۆ کۆدی پاقژ و باش. ئەم پسپورن د درووستکرنا وێبسایتا کو نە ب تنێ سەرنجراکێش  بەلکو ئەنجامی دیاردکت.', 'about.p2': 'د دروستکرنا پەڕەی فرۆشتن بۆ پلاتفۆرمی ئیکومێرش و داشبۆردی کارکرنێ — هەمی شارەزایێتخوە بۆ هەر پڕۆژەیەک ددنە شولی.', 'skill.ecommerce': 'فرۆشگای ئۆنلاین', 'skill.perf': 'باشکرنا کاری', 'skill.responsive': 'دیزاینی ریسپونسێڤ', 'projects.title': 'کارێت <em>هەلبژارتی</em>', 'project.open': 'سایتی ڤەکە', 'project.visit': 'سەرەدانا پرۆژا بکە', 'services.title': 'چ <em>پێشکێش دکەن</em>', 'service1.name': 'پەڕەی فرۆشتن', 'service1.desc': 'لاپەرێن نیشاندانا سەرەکی یێن ب رێژەیەکا بلند یا گۆهۆرینێ، ب نڤیسینەکا سەرنجڕاکێش، دیزاینەکا جوان، و بانگێشەیێن چالاکیێ یێن باشکرکری کو سەردانیکەران دکەنە کریار.', 'service2.name': 'فرۆشگاکانی ئیکۆمێرس', 'service2.desc': 'دکانێن ئۆنلاین یێن تەمام، ب پرۆسەیا پارەدانێ یا بێ کێشە، رێڤەبرنا بەرهەمان، ئێکگرتنا پارەدانێ، و دیزاینەکا سەرەکی یا مۆبایلی.', 'service3.name': 'بەرنامێت وێب', 'service3.desc': 'داشبۆردێن تایبەت، پلاتفۆرمێن SaaS، و ئەپێن وێبێ یێن کارلێکەر کو ب فریمۆرکێن نوی هاتینە چێکرن ژ بۆ کارایی و گەشەکرنێ.', 'service4.name': 'سایتی پۆرتفۆلیۆ', 'service4.desc': 'مالپەرێن پۆرتفۆلیۆ یێن تایبەت، کو کارێ هونەری ب جوانترین شێوە نیشان ددەن، و کارتێکرنەکا بەردەوام ل سەر هەر سەردانکارەکی دهێلن.', 'service5.name': 'بلۆگ و CMS', 'service5.desc': 'مالپەرێن کو ب ناڤەرۆکێ دهێنە برێڤەبرن دگەل سیستەمێن CMS یێن بهێز — ب ساناهی دهێنە رێڤەبرن، ب لەز دهێنە بارکرن، گەلەک باشە بو SEO.', 'service6.name': 'دووبارە دیزاینکرن و باشترکرن', 'service6.desc': 'مالپەرێن کەڤن بکە مالپەرێن نوی، ب لەز، و ب شێوەیەکێ کو هەمی کەس دشێن بکاربینن. پشکنینێن کارکرنێ، باشکرنا ئەزموونا بکاربەران، و نویکرنا دیمەنی.', 'contact.title': 'دا <em>پەیوەندیێ بکەین</em>', 'contact.heading': 'پروژەیەک<br>د <em>هزراتەدە هەیە؟</em>', 'contact.desc': 'ئەم هەردەم ئامادەین بۆ گۆتوبێژکرنا پرۆژەیێن نوو، بیرۆکەیێن داهێنەر، یان دەلیڤەیێن کو ببنە پشکەک ژ دیدا هەوە. وەرن با ب پێکڤە تشتەکێ نایاب ئاڤا بکەین.', 'contact.email': 'ئیمەیڵ', 'contact.location': 'جهـ', 'contact.city': 'زاخۆ', 'contact.response': 'وەختێ جابدانێ', 'contact.responseVal': 'د ناف ٢٤ دەمژمێرادا', 'contact.phone': 'ژمارا موبایلێ', 'form.name': 'ناڤێ تە', 'form.email': 'ناڤونیشانا ئیمەیڵ', 'form.subject': 'چ جورە پڕۆژە', 'form.message': 'بەحسا پروژێ خوەبکە  ...', 'form.send': 'ریسالێ پنێرە', 'form.success': '✓   ریسالاتە هات هنارتن — ل نێزیک دێ  پەیوەندیێ بتەکن!', 'form.alert': 'هیڤیە ناف، ئیمەیڵ و ریسالا خوە تژی بکە.', 'footer.credit': 'هاتیە دروستکرن' },
+  ku: { dir: 'rtl', label: 'کو', 'nav.about': 'دەربارە', 'nav.work': 'کارەکانم', 'nav.services': 'خزمەتگوزاریەکان', 'nav.contact': 'پەیوەندی', 'hero.eyebrow': 'دیزاینەر و گەشەپێدەری وێب', 'hero.name': 'نیهاد <br><em>کوچەر</em><br>', 'hero.title': 'گەشەپێدانی وێب · دیزاینی UI/UX · فرۆشگای ئۆنلاین', 'hero.desc': 'ئەم وێبسایتا دیزاین دکەن و دەم درووستدکەن — ل پەڕەی فروشتن تا دکانێت ئونلاین یێ بهێز و داشبۆردی دینامیکی. هەر پیکسێلێک مەبەستا مەیە .', 'hero.cta1': 'کارێت مە ببینە →', 'hero.cta2': 'پەیوەندیێ بمەبکە', 'hero.scroll': 'ببەخارێ ', 'about.title': 'دەربارەی <em>مە</em>', 'about.heading': 'ئەم بیرۆکێن هەوە دگهورین بو وێبسایتی نایاب.', 'about.p1': 'سلاف! ئەم گەشەپێدەرێن وێبین ب دیتنەکا تیژ بۆ دیزاین و حەزامە بۆ کۆدی پاقژ و باش. ئەم پسپورن د درووستکرنا وێبسایتا کو نە ب تنێ سەرنجراکێش  بەلکو ئەنجامی دیاردکت.', 'about.p2': 'د درووستکرنا پەڕەی فرۆشتن بۆ پلاتفۆرمی ئیکومێرش و داشبۆردی کارکرنێ — هەمی شارەزایێتخوە بۆ هەر پڕۆژەیەک ددنە شولی.', 'skill.ecommerce': 'فرۆشگای ئۆنلاین', 'skill.perf': 'باشکرنا کاری', 'skill.responsive': 'دیزاینی ریسپونسێڤ', 'projects.title': 'کارێت <em>هەلبژارتی</em>', 'project.open': 'سایتی ڤەکە', 'project.visit': 'سەرەدانا پرۆژا بکە', 'services.title': 'چ <em>پێشکێش دکەن</em>', 'service1.name': 'پەڕەی فرۆشتن', 'service1.desc': 'لاپەرێن نیشاندانا سەرەکی یێن ب رێژەیەکا بلند یا گۆهۆرینێ، ب نڤیسینەکا سەرنجڕاکێش، دیزاینەکا جوان، و بانگێشەیێن چالاکیێ یێن باشکرکری کو سەردانیکەران دکەنە کریار.', 'service2.name': 'فرۆشگاکانی ئیکۆمێرس', 'service2.desc': 'دکانێن ئۆنلاین یێن تەمام، ب پرۆسەیا پارەدانێ یا بێ کێشە، رێڤەبرنا بەرهەمان، ئێکگرتنا پارەدانێ، و دیزاینەکا سەرەکی یا مۆبایلی.', 'service3.name': 'بەرنامێت وێب', 'service3.desc': 'داشبۆردێن تایبەت، پلاتفۆرمێن SaaS، و ئەپێن وێبێ یێن کارلێکەر کو ب فریمۆرکێن نوی هاتینە چێکرن ژ بۆ کارایی و گەشەکرنێ.', 'service4.name': 'سایتی پۆرتفۆلیۆ', 'service4.desc': 'مالپەرێن پۆرتفۆلیۆ یێن تایبەت، کو کارێ هونەری ب جوانترین شێوە نیشان ددەن، و کارتێکرنەکا بەردەوام ل سەر هەر سەردانکارەکی دهێلن.', 'service5.name': 'بلۆگ و CMS', 'service5.desc': 'مالپەرێن کو ب ناڤەرۆکێ دهێنە برێڤەبرن دگەل سیستەمێن CMS یێن بهێز — ب ساناهی دهێنە رێڤەبرن، ب لەز دهێنە بارکرن، گەلەک باشە بو SEO.', 'service6.name': 'دووبارە دیزاینکرن و باشترکرن', 'service6.desc': 'مالپەرێن کەڤن بکە مالپەرێن نوی، ب لەز، و ب شێوەیەکێ کو هەمی کەس دشێن بکاربینن. پشکنینێن کارکرنێ، باشکرنا ئەزموونا بکاربەران، و نویکرنا دیمەنی.', 'contact.title': 'دا <em>پەیوەندیێ بکەین</em>', 'contact.heading': 'پروژەیەک<br>د <em>هزراتەدە هەیە؟</em>', 'contact.desc': 'ئەم هەردەم ئامادەین بۆ گۆتوبێژکرنا پرۆژەیێن نوو، بیرۆکەیێن داهێنەر، یان دەلیڤەیێن کو ببنە پشکەک ژ دیدا هەوە. وەرن با ب پێکڤە تشتەکێ نایاب ئاڤا بکەین.', 'contact.email': 'ئیمەیڵ', 'contact.location': 'جهـ', 'contact.city': 'زاخۆ', 'contact.response': 'وەختێ جابدانێ', 'contact.responseVal': 'د ناف ٢٤ دەمژمێرادا', 'contact.phone': 'ژمارا موبایلێ', 'form.name': 'ناڤێ تە', 'form.email': 'ناڤونیشانا ئیمەیڵ', 'form.subject': 'چ جورە پڕۆژە', 'form.message': 'بەحسا پروژێ خوەبکە  ...', 'form.send': 'ریسالێ پنێرە', 'form.success': '✓   ریسالاتە هات هنارتن — ل نێزیک دێ  پەیوەندیێ بتەکن!', 'form.alert': 'هیڤیە ناف، ئیمەیڵ و ریسالا خوە تژی بکە.', 'footer.credit': 'هاتیە دروستکرن' },
   ar: { dir: 'rtl', label: 'ع', 'nav.about': 'عنّي', 'nav.work': 'أعمالي', 'nav.services': 'خدماتي', 'nav.contact': 'تواصل', 'hero.eyebrow': 'مطوّر ومصمم مواقع', 'hero.name': 'نیهاد <br><em>کوچەر</em><br>', 'hero.title': 'تطوير الويب الشامل · تصميم UI/UX · التجارة الإلكترونية', 'hero.desc': 'أصمّم وأبني مواقع استثنائية — من صفحات الهبوط الأنيقة إلى متاجر التجارة الإلكترونية القوية ولوحات المعلومات الديناميكية. كل بيكسل مقصود.', 'hero.cta1': 'استعرض أعمالي →', 'hero.cta2': 'تواصل معي', 'hero.scroll': 'مرّر', 'about.title': 'عن <em>نفسي</em>', 'about.heading': 'نحوّل الأفكار إلى مواقع رائعة.', 'about.p1': 'مرحباً! أنا مطوّر ويب شغوف بعين حادة للتصميم وحبٍّ للكود النظيف والفعّال. متخصص في بناء مواقع لا تبدو رائعة فحسب، بل تحقق النتائج.', 'about.p2': 'من صياغة صفحات هبوط مثالية البكسل إلى بناء منصات تجارة إلكترونية غنية بالميزات ولوحات معلومات تفاعلية — أجلب طيفاً كاملاً من المهارات لكل مشروع.', 'skill.ecommerce': 'التجارة الإلكترونية', 'skill.perf': 'تحسين الأداء', 'skill.responsive': 'التصميم المتجاوب', 'projects.title': 'أعمال <em>مختارة</em>', 'project.open': 'فتح الموقع', 'project.visit': 'زيارة المشروع', 'services.title': 'ما أقدّمه <em>لك</em>', 'service1.name': 'صفحات الهبوط', 'service1.desc': 'صفحات هبوط عالية التحويل بمحتوى مقنع وتصميم جميل ودعوات للعمل محسّنة تحوّل الزوار إلى عملاء.', 'service2.name': 'متاجر إلكترونية', 'service2.desc': 'متاجر إلكترونية متكاملة بتدفق دفع سلس وإدارة منتجات ودمج مدفوعات وتصميم يُقدّم الجوال أولاً.', 'service3.name': 'تطبيقات الويب', 'service3.desc': 'لوحات تحكم مخصصة ومنصات SaaS وتطبيقات ويب تفاعلية مبنية بأطر عمل حديثة للأداء وقابلية التوسع.', 'service4.name': 'مواقع البورتفوليو', 'service4.desc': 'مواقع بورتفوليو مميزة تعرض الأعمال الإبداعية بجمال، وتترك انطباعاً لا يُنسى لدى كل زائر.', 'service5.name': 'المدونات ونظام CMS', 'service5.desc': 'مواقع قائمة على المحتوى مع تكاملات CMS قوية — سهلة الإدارة، سريعة التحميل، ممتازة لتحسين محركات البحث.', 'service6.name': 'إعادة التصميم والتحسين', 'service6.desc': 'تحويل المواقع القديمة إلى تجارب حديثة وسريعة وسهلة الوصول. تدقيق الأداء وتحسينات UX والتحديث البصري.', 'contact.title': 'لنتواصل <em>معاً</em>', 'contact.heading': 'هل لديك مشروع<br>في <em>ذهنك؟</em>', 'contact.desc': 'أنا دائماً منفتح على مناقشة مشاريع جديدة أو أفكار إبداعية أو فرص للمشاركة في رؤيتك. دعنا نبني شيئاً استثنائياً معاً.', 'contact.email': 'البريد الإلكتروني', 'contact.location': 'الموقع', 'contact.city': 'زاخو', 'contact.response': 'وقت الاستجابة', 'contact.responseVal': 'خلال ٢٤ ساعة', 'contact.phone': 'رقم الهاتف', 'form.name': 'اسمك', 'form.email': 'عنوان البريد', 'form.subject': 'نوع المشروع', 'form.message': 'أخبرني عن مشروعك...', 'form.send': 'إرسال الرسالة', 'form.success': '✓   تم إرسال رسالتك — سأتواصل معك قريباً!', 'form.alert': 'من فضلك أدخل الاسم والبريد الإلكتروني والرسالة.', 'footer.credit': 'تصميم وتطوير' },
   tr: { dir: 'ltr', label: 'TR', 'nav.about': 'Hakkımızda', 'nav.work': 'Çalışmalar', 'nav.services': 'Hizmetler', 'nav.contact': 'İletişimiz', 'hero.eyebrow': 'Web Geliştirici & Tasarımcı', 'hero.name': 'NIHAD <br><em>KOCHAR</em><br>', 'hero.title': 'Full-Stack Web Geliştirme · UI/UX Tasarım · E-ticaret', 'hero.desc': 'Şık açılış sayfalarından güçlü e-ticaret mağazalarına ve dinamik panellere kadar olağanüstü web siteleri tasarlıyor ve geliştiriyorum. Her piksel kasıtlıdır.', 'hero.cta1': 'Çalışmalarımı Gör →', 'hero.cta2': 'İletişime Geç', 'hero.scroll': 'Kaydır', 'about.title': 'Hakkımda <em>Bilgi</em>', 'about.heading': 'Fikirleri olağanüstü web sitelerine dönüştürüyoruz.', 'about.p1': 'Merhaba! Tasarıma keskin gözü ve temiz, performanslı koda sevgisiyle tutkulu bir web geliştiricisiyim. Yalnızca çarpıcı görünmekle kalmayıp sonuç da veren web siteleri geliştirme konusunda uzmanlaşıyorum.', 'about.p2': 'Piksel mükemmeliyetinde açılış sayfaları oluşturmaktan zengin özellikli e-ticaret platformları ve etkileşimli paneller inşa etmeye kadar — her projeye tam bir beceri yelpazesi getiriyorum.', 'skill.ecommerce': 'E-ticaret', 'skill.perf': 'Performans Opt.', 'skill.responsive': 'Duyarlı Tasarım', 'projects.title': 'Seçili <em>Çalışmalar</em>', 'project.open': 'Siteyi Aç', 'project.visit': 'Projeyi Ziyaret Et', 'services.title': 'Sunduğum <em>Hizmetler</em>', 'service1.name': 'Açılış Sayfaları', 'service1.desc': 'Ziyaretçileri müşteriye dönüştüren, ikna edici kopya, güzel tasarım ve optimize edilmiş harekete geçirme ifadeleriyle yüksek dönüşümlü açılış sayfaları.', 'service2.name': 'E-ticaret Mağazaları', 'service2.desc': 'Sorunsuz ödeme akışları, ürün yönetimi, ödeme entegrasyonu ve mobil öncelikli tasarımla tam özellikli çevrimiçi mağazalar.', 'service3.name': 'Web Uygulamaları', 'service3.desc': 'Performans ve ölçeklenebilirlik için modern çerçevelerle oluşturulmuş özel paneller, SaaS platformları ve etkileşimli web uygulamaları.', 'service4.name': 'Portföy Siteleri', 'service4.desc': 'Yaratıcı çalışmaları güzel bir şekilde sergileyen ve her ziyaretçide kalıcı bir izlenim bırakan özgün portföy web siteleri.', 'service5.name': 'Blog & CMS', 'service5.desc': "Güçlü CMS entegrasyonlarıyla içerik odaklı web siteleri — kolay yönetim, hızlı yükleme, SEO için mükemmel.", 'service6.name': 'Yeniden Tasarım & Optimizasyon', 'service6.desc': "Eski web sitelerini modern, hızlı, erişilebilir deneyimlere dönüştürün. Performans denetimleri, UX iyileştirmeleri ve görsel yenileme.", 'contact.title': "Birlikte <em>Çalışalım</em>", 'contact.heading': 'Aklınızda bir proje<br>mi <em>var?</em>', 'contact.desc': "Yeni projeler, yaratıcı fikirler veya vizyonunuzun bir parçası olma fırsatlarını her zaman tartışmaya açığım. Birlikte olağanüstü bir şey inşa edelim.", 'contact.email': 'E-posta', 'contact.location': 'Konum', 'contact.city': 'ZAKHO', 'contact.response': 'Yanıt Süresi', 'contact.responseVal': '24 saat içinde', 'contact.phone': 'Telefon Numarası', 'form.name': 'Adınız', 'form.email': 'E-posta Adresi', 'form.subject': 'Proje Türü', 'form.message': 'Projeniz hakkında bilgi verin...', 'form.send': 'Mesaj Gönder', 'form.success': '✓   MESAJ GÖNDERİLDİ — Yakında sizinle iletişime geçeceğim!', 'form.alert': 'Lütfen adınızı, e-postanızı ve mesajınızı doldurun.', 'footer.credit': 'Oluşturan' }
 };
 
 let currentLang = 'en';
+
+// Theme management
+function setTheme(theme) {
+  if (theme === 'light') {
+    document.body.classList.add('light-mode');
+    localStorage.setItem('portfolioTheme', 'light');
+    const themeLabel = document.getElementById('themeLabel');
+    if (themeLabel) themeLabel.innerText = 'Light';
+  } else {
+    document.body.classList.remove('light-mode');
+    localStorage.setItem('portfolioTheme', 'dark');
+    const themeLabel = document.getElementById('themeLabel');
+    if (themeLabel) themeLabel.innerText = 'Dark';
+  }
+}
+function toggleTheme() {
+  const isLight = document.body.classList.contains('light-mode');
+  setTheme(isLight ? 'dark' : 'light');
+}
+// Load saved theme from localStorage
+const savedTheme = localStorage.getItem('portfolioTheme');
+if (savedTheme === 'light') setTheme('light');
+else setTheme('dark');
+
 function setLanguage(lang) {
   if (!translations[lang]) return;
   currentLang = lang;
@@ -771,11 +761,9 @@ function setLanguage(lang) {
 function toggleLangDropdown() { document.getElementById('langSwitcher').classList.toggle('open'); }
 document.addEventListener('click', function(e) { const switcher = document.getElementById('langSwitcher'); if (!switcher.contains(e.target)) switcher.classList.remove('open'); });
 
-// navbar scroll
 const navbarEl = document.getElementById('navbar');
 window.addEventListener('scroll', () => navbarEl.classList.toggle('scrolled', window.scrollY > 40));
 
-// reveal observer
 const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.12 });
 reveals.forEach(el => observer.observe(el));
@@ -784,7 +772,6 @@ const projectsData = [
   { name: "Adaascentss Perfume", tag: "E-commerce", desc: "Luxury perfume brand website designed to highlight exclusive fragrances, enhance product discovery, and deliver a refined shopping experience.", url: "https://adaascentss.com/home.php", img: "images/adaascents.png" },
   { name: "Almansa Co.", tag: "Fruit Company", desc: "Modern fruit and vegetable company website offering fresh produce with easy browsing and online ordering.", url: "https://almansaco.site/", img: "images/almansa.png" },
   { name: "Salih Ibrahim Salih Co.", tag: "Fruit Company", desc: "Modern fruit and vegetable company website offering fresh produce with easy browsing and online ordering.", url: "https://salihibrahimsalihco.com/", img: "images/salih.png" },
-// { name: "Qesr Al Sultan Restaurant", tag: "Restaurant", desc: "Fully responsive restaurant website featuring an interactive menu, booking system, and seamless customer ordering flow.", url: "https://birhatqader.github.io/qasrelsultan-rest-coffe/", img: "images/qasr.png" },
   { name: "Profissional Company", tag: "", desc: "Advanced plumbing management system with real-time material tracking, pipe and equipment control, and streamlined workflow for efficient service operations", url: "https://birhatqader.github.io/profissional/", img: "images/6.png" },
   { name: "Haje Sardar", tag: "", desc: "Complete e-commerce solution featuring product browsing, cart system, secure checkout, and smooth user shopping experience.", url: "https://birhatqader.github.io/hajesardar-company/", img: "images/sardar.png" },
   { name: "Kochar Rest&Cafe", tag: "", desc: "Complete food & cafe solution featuring product browsing, cart system, secure checkout, and smooth user food experience.", url: "https://birhatqader.github.io/kochar_Res-Cofe//", img: "images/2.png" },
@@ -810,9 +797,7 @@ function buildProjects() {
   });
   document.querySelectorAll('.project-card').forEach(el => observer.observe(el));
 }
-
 buildProjects();
-
 window.handleSend = function() {
   const t = translations[currentLang];
   const name = document.getElementById('name').value.trim();
@@ -830,7 +815,7 @@ window.handleSend = function() {
   setTimeout(() => { successEl.style.display = 'none'; }, 5000);
 };
 document.getElementById("year").textContent = new Date().getFullYear();
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
 </script>
 </body>
 </html>
-```
